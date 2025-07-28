@@ -1,24 +1,27 @@
 import numpy as np
 from typing import List, Dict, Any
 import re
-import math
 
 class RelevanceScorer:
     def __init__(self):
-        # No domain-specific initialization
+        # No predefined constants - everything is dynamic
         pass
     
     def score_sections(self, sections: List[Dict[str, Any]], 
                       persona_context: Dict[str, Any]) -> List[Dict[str, Any]]:
-        """Score sections using pure algorithmic approach"""
+        """Score sections using completely generic approach"""
         
         if not sections:
             return []
         
         scored_sections = []
         
+        # Get query components dynamically
+        all_keywords = persona_context.get('keywords', [])
+        combined_query = persona_context.get('combined_query', '')
+        
         for section in sections:
-            score = self._calculate_universal_relevance_score(section, persona_context)
+            score = self._calculate_pure_generic_score(section, all_keywords, combined_query)
             
             section_with_score = section.copy()
             section_with_score['relevance_score'] = score
@@ -27,8 +30,8 @@ class RelevanceScorer:
         # Sort by relevance score
         scored_sections.sort(key=lambda x: x['relevance_score'], reverse=True)
         
-        # Apply universal diversity
-        balanced_sections = self._ensure_universal_diversity(scored_sections)
+        # Apply diversity
+        balanced_sections = self._ensure_diversity(scored_sections)
         
         # Add importance rank
         for i, section in enumerate(balanced_sections):
@@ -36,47 +39,42 @@ class RelevanceScorer:
         
         return balanced_sections
     
-    def _calculate_universal_relevance_score(self, section: Dict[str, Any], 
-                                           persona_context: Dict[str, Any]) -> float:
-        """Universal relevance scoring without domain bias"""
+    def _calculate_pure_generic_score(self, section: Dict[str, Any], 
+                                    keywords: List[str], 
+                                    query: str) -> float:
+        """Pure generic scoring without any domain assumptions"""
         
         section_text = f"{section['section_title']} {section.get('content', '')}".lower()
-        query_text = persona_context['combined_query']
-        keywords = persona_context['keywords']
         
-        # 1. Keyword Frequency Score
-        keyword_score = self._calculate_keyword_frequency(section_text, keywords)
+        # 1. Keyword overlap (most important for generic approach)
+        keyword_score = self._calculate_keyword_overlap(section_text, keywords)
         
-        # 2. Text Similarity Score (using simple word overlap)
-        similarity_score = self._calculate_text_similarity(section_text, query_text)
+        # 2. Query similarity (word overlap)
+        query_similarity = self._calculate_word_overlap(section_text, query)
         
-        # 3. Section Quality Score (universal heuristics)
-        quality_score = self._calculate_section_quality(section)
+        # 3. Text quality (universal metrics)
+        quality_score = self._calculate_text_quality(section)
         
-        # 4. Content Completeness Score
-        completeness_score = self._calculate_content_completeness(section)
+        # 4. Content richness (information density)
+        richness_score = self._calculate_content_richness(section_text)
         
-        # 5. Title Relevance Score
-        title_relevance = self._calculate_title_relevance(section['section_title'], keywords)
-        
-        # Universal weighted combination
+        # Balanced combination
         final_score = (
-            0.30 * keyword_score +
-            0.25 * similarity_score +
+            0.40 * keyword_score +
+            0.30 * query_similarity +
             0.20 * quality_score +
-            0.15 * completeness_score +
-            0.10 * title_relevance
+            0.10 * richness_score
         )
         
         return final_score
     
-    def _calculate_keyword_frequency(self, text: str, keywords: List[str]) -> float:
-        """Calculate keyword frequency using TF-IDF-like approach"""
+    def _calculate_keyword_overlap(self, text: str, keywords: List[str]) -> float:
+        """Calculate keyword overlap ratio"""
         if not keywords or not text:
             return 0.0
         
         text_words = set(re.findall(r'\b[a-zA-Z]{3,}\b', text.lower()))
-        keyword_set = set(keyword.lower() for keyword in keywords)
+        keyword_set = set(kw.lower() for kw in keywords)
         
         # Direct matches
         direct_matches = len(text_words.intersection(keyword_set))
@@ -87,14 +85,14 @@ class RelevanceScorer:
             if any(keyword in word for word in text_words):
                 partial_matches += 1
         
-        # Calculate frequency score
-        total_possible = len(keyword_set)
-        frequency_score = (direct_matches * 2 + partial_matches) / (total_possible * 2)
+        # Calculate score
+        total_keywords = len(keyword_set)
+        overlap_score = (direct_matches * 2 + partial_matches) / (total_keywords * 2)
         
-        return min(1.0, frequency_score)
+        return min(1.0, overlap_score)
     
-    def _calculate_text_similarity(self, text1: str, text2: str) -> float:
-        """Calculate text similarity using Jaccard coefficient"""
+    def _calculate_word_overlap(self, text1: str, text2: str) -> float:
+        """Calculate word overlap using Jaccard similarity"""
         if not text1 or not text2:
             return 0.0
         
@@ -109,127 +107,80 @@ class RelevanceScorer:
         
         return intersection / union if union > 0 else 0.0
     
-    def _calculate_section_quality(self, section: Dict[str, Any]) -> float:
-        """Universal section quality metrics"""
+    def _calculate_text_quality(self, section: Dict[str, Any]) -> float:
+        """Universal text quality metrics"""
         title = section.get('section_title', '')
         content = section.get('content', '')
         
         quality_score = 0.0
         
-        # Title quality
-        if title:
-            title_length = len(title)
-            if 10 <= title_length <= 80:  # Optimal title length
-                quality_score += 0.3
-            elif 5 <= title_length <= 120:  # Acceptable range
-                quality_score += 0.1
-            
-            # Title structure (starts with capital, not all caps unless short)
-            if title[0].isupper() and not (title.isupper() and len(title) > 20):
-                quality_score += 0.2
+        # Title length (not too short, not too long)
+        if 10 <= len(title) <= 100:
+            quality_score += 0.3
+        elif 5 <= len(title) <= 150:
+            quality_score += 0.1
         
-        # Content quality
+        # Content substantiality
         if content:
             word_count = len(content.split())
-            if 50 <= word_count <= 500:  # Optimal content length
-                quality_score += 0.3
-            elif 20 <= word_count <= 800:  # Acceptable range
+            if 20 <= word_count <= 200:
+                quality_score += 0.4
+            elif word_count > 10:
                 quality_score += 0.2
-            elif word_count > 0:
-                quality_score += 0.1
         
-        # Avoid generic titles
-        generic_indicators = ['introduction', 'conclusion', 'overview', 'summary', 'preface', 'appendix']
-        if not any(generic.lower() in title.lower() for generic in generic_indicators):
-            quality_score += 0.2
+        # Text coherence (has proper spacing and structure)
+        if ' ' in title and not title.startswith(' '):
+            quality_score += 0.3
         
         return min(1.0, quality_score)
     
-    def _calculate_content_completeness(self, section: Dict[str, Any]) -> float:
-        """Measure content completeness using universal indicators"""
-        content = section.get('content', '').lower()
-        title = section.get('section_title', '').lower()
-        
-        if not content:
+    def _calculate_content_richness(self, text: str) -> float:
+        """Measure information density"""
+        if not text:
             return 0.0
         
-        completeness_score = 0.0
+        # Count unique words
+        words = re.findall(r'\b[a-zA-Z]{3,}\b', text.lower())
+        unique_words = len(set(words))
+        total_words = len(words)
         
-        # Check for structured content indicators
-        structure_indicators = [
-            r'\d+\.',  # Numbered lists
-            r'[•\-\*]',  # Bullet points
-            r':',  # Colons (definitions, explanations)
-            r';',  # Semicolons (detailed lists)
-        ]
+        # Richness is ratio of unique to total words
+        if total_words == 0:
+            return 0.0
         
-        for pattern in structure_indicators:
-            if re.search(pattern, content):
-                completeness_score += 0.15
+        richness = unique_words / total_words
         
-        # Check for explanatory content
-        explanation_words = ['how', 'what', 'why', 'when', 'where', 'which', 'because', 'since', 'therefore']
-        explanation_count = sum(1 for word in explanation_words if word in content)
-        completeness_score += min(0.3, explanation_count * 0.05)
+        # Bonus for longer content with high uniqueness
+        if total_words > 50 and richness > 0.7:
+            richness += 0.2
         
-        # Content-title alignment
-        title_words = set(re.findall(r'\b[a-zA-Z]{3,}\b', title))
-        content_words = set(re.findall(r'\b[a-zA-Z]{3,}\b', content))
-        
-        if title_words and content_words:
-            alignment = len(title_words.intersection(content_words)) / len(title_words)
-            completeness_score += alignment * 0.25
-        
-        return min(1.0, completeness_score)
+        return min(1.0, richness)
     
-    def _calculate_title_relevance(self, title: str, keywords: List[str]) -> float:
-        """Calculate how relevant the title is to the keywords"""
-        if not title or not keywords:
-            return 0.0
-        
-        title_lower = title.lower()
-        title_words = set(re.findall(r'\b[a-zA-Z]{3,}\b', title_lower))
-        keyword_set = set(keyword.lower() for keyword in keywords)
-        
-        if not title_words:
-            return 0.0
-        
-        # Direct word matches in title
-        matches = len(title_words.intersection(keyword_set))
-        
-        # Partial matches
-        partial_matches = sum(1 for keyword in keyword_set 
-                            if any(keyword in word for word in title_words))
-        
-        relevance = (matches * 2 + partial_matches) / (len(keyword_set) * 2)
-        return min(1.0, relevance)
-    
-    def _ensure_universal_diversity(self, ranked_sections: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-        """Ensure document diversity without domain-specific preferences"""
+    def _ensure_diversity(self, ranked_sections: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """Ensure document diversity without preferences"""
         if not ranked_sections:
             return []
         
-        # Calculate optimal distribution
+        # Calculate how many sections per document
         unique_docs = list(set(section['document'] for section in ranked_sections))
-        total_sections_needed = min(15, len(ranked_sections))
-        sections_per_doc = max(1, total_sections_needed // len(unique_docs))
+        total_needed = min(15, len(ranked_sections))
+        per_doc = max(1, total_needed // len(unique_docs))
         
-        balanced_sections = []
+        balanced = []
         doc_counts = {}
         
-        # First pass: distribute evenly across documents
+        # First pass: distribute evenly
         for section in ranked_sections:
             doc = section['document']
-            if doc_counts.get(doc, 0) < sections_per_doc:
-                balanced_sections.append(section)
+            if doc_counts.get(doc, 0) < per_doc:
+                balanced.append(section)
                 doc_counts[doc] = doc_counts.get(doc, 0) + 1
         
-        # Second pass: fill remaining slots with highest scoring sections
-        remaining_slots = total_sections_needed - len(balanced_sections)
+        # Second pass: fill remaining slots
         for section in ranked_sections:
-            if len(balanced_sections) >= total_sections_needed:
+            if len(balanced) >= total_needed:
                 break
-            if section not in balanced_sections:
-                balanced_sections.append(section)
+            if section not in balanced:
+                balanced.append(section)
         
-        return balanced_sections[:total_sections_needed]
+        return balanced[:total_needed]
