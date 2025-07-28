@@ -2,6 +2,40 @@
 
 A fast, CPU-only document analysis tool that intelligently extracts relevant sections from large PDF collections based on persona-driven goals.
 
+## 🌐 Usage
+
+### CLI
+
+```bash
+python main.py "Collection 1"
+```
+
+### Docker
+
+```bash
+docker build -t 1b-minimal .
+docker run --rm -v "${PWD}:/app" 1b-minimal python main.py "Collection 2"
+```
+
+---
+
+## 📊 Output Format
+
+```json
+{
+  "metadata": {
+    "input_documents": [...],
+    "persona": "...",
+    "job_to_be_done": "...",
+    "processing_timestamp": "..."
+  },
+  "extracted_sections": [...],
+  "subsection_analysis": [...]
+}
+```
+
+---
+
 ---
 
 ## 🌟 Overview
@@ -108,39 +142,6 @@ CMD ["python", "main.py", "--help"]
 
 ---
 
-## 🌐 Usage
-
-### CLI
-
-```bash
-python main.py "Collection 1"
-```
-
-### Docker
-
-```bash
-docker build -t 1b-minimal .
-docker run --rm -v "${PWD}:/app" 1b-minimal python main.py "Collection 2"
-```
-
----
-
-## 📊 Output Format
-
-```json
-{
-  "metadata": {
-    "input_documents": [...],
-    "persona": "...",
-    "job_to_be_done": "...",
-    "processing_timestamp": "..."
-  },
-  "extracted_sections": [...],
-  "subsection_analysis": [...]
-}
-```
-
----
 
 ## 🚧 Troubleshooting
 
