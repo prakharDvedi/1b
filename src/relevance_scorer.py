@@ -1,29 +1,34 @@
 import numpy as np
 from typing import List, Dict, Any
 import re
+import math
 
 class RelevanceScorer:
     def __init__(self):
+        # No domain-specific initialization
         pass
     
     def score_sections(self, sections: List[Dict[str, Any]], 
                       persona_context: Dict[str, Any]) -> List[Dict[str, Any]]:
-        """Completely generic scoring without domain assumptions"""
+        """Score sections using pure algorithmic approach"""
+        
+        if not sections:
+            return []
         
         scored_sections = []
         
         for section in sections:
-            score = self.calculate_generic_relevance_score(section, persona_context)
+            score = self._calculate_universal_relevance_score(section, persona_context)
             
             section_with_score = section.copy()
             section_with_score['relevance_score'] = score
             scored_sections.append(section_with_score)
         
-        # Sort by relevance score (descending)
+        # Sort by relevance score
         scored_sections.sort(key=lambda x: x['relevance_score'], reverse=True)
         
-        # Generic document diversity
-        balanced_sections = self.ensure_generic_diversity(scored_sections)
+        # Apply universal diversity
+        balanced_sections = self._ensure_universal_diversity(scored_sections)
         
         # Add importance rank
         for i, section in enumerate(balanced_sections):
@@ -31,177 +36,200 @@ class RelevanceScorer:
         
         return balanced_sections
     
-    def calculate_generic_relevance_score(self, section: Dict[str, Any], 
-                                        persona_context: Dict[str, Any]) -> float:
-        """Generic scoring based only on input context"""
+    def _calculate_universal_relevance_score(self, section: Dict[str, Any], 
+                                           persona_context: Dict[str, Any]) -> float:
+        """Universal relevance scoring without domain bias"""
         
-        section_text = f"{section['section_title']} {section['content']}".lower()
+        section_text = f"{section['section_title']} {section.get('content', '')}".lower()
+        query_text = persona_context['combined_query']
+        keywords = persona_context['keywords']
         
-        # 1. Dynamic keyword matching (most important)
-        keyword_score = self.calculate_dynamic_keyword_match(
-            section_text, persona_context
-        )
+        # 1. Keyword Frequency Score
+        keyword_score = self._calculate_keyword_frequency(section_text, keywords)
         
-        # 2. Action relevance (based on verbs in job task)
-        action_score = self.calculate_action_relevance(
-            section_text, persona_context['job_task']
-        )
+        # 2. Text Similarity Score (using simple word overlap)
+        similarity_score = self._calculate_text_similarity(section_text, query_text)
         
-        # 3. Section quality (generic heuristics)
-        quality_score = self.calculate_generic_section_quality(section)
+        # 3. Section Quality Score (universal heuristics)
+        quality_score = self._calculate_section_quality(section)
         
-        # 4. Context coherence (how well section matches overall context)
-        coherence_score = self.calculate_context_coherence(
-            section_text, persona_context
-        )
+        # 4. Content Completeness Score
+        completeness_score = self._calculate_content_completeness(section)
         
-        # Equal weights - no domain bias
+        # 5. Title Relevance Score
+        title_relevance = self._calculate_title_relevance(section['section_title'], keywords)
+        
+        # Universal weighted combination
         final_score = (
-            0.4 * keyword_score +
-            0.25 * action_score +
-            0.2 * quality_score +
-            0.15 * coherence_score
+            0.30 * keyword_score +
+            0.25 * similarity_score +
+            0.20 * quality_score +
+            0.15 * completeness_score +
+            0.10 * title_relevance
         )
         
         return final_score
     
-    def calculate_dynamic_keyword_match(self, section_text: str, 
-                                      persona_context: Dict[str, Any]) -> float:
-        """Dynamic keyword matching without predefined lists"""
-        
-        # Extract keywords from persona and job dynamically
-        persona_words = self.extract_meaningful_words(persona_context['persona_role'])
-        job_words = self.extract_meaningful_words(persona_context['job_task'])
-        
-        all_keywords = persona_words + job_words
-        
-        if not all_keywords:
+    def _calculate_keyword_frequency(self, text: str, keywords: List[str]) -> float:
+        """Calculate keyword frequency using TF-IDF-like approach"""
+        if not keywords or not text:
             return 0.0
         
-        # Calculate matches with different weights
-        exact_matches = sum(1 for keyword in all_keywords if keyword in section_text)
-        partial_matches = sum(1 for keyword in all_keywords 
-                            if any(keyword in word for word in section_text.split()))
+        text_words = set(re.findall(r'\b[a-zA-Z]{3,}\b', text.lower()))
+        keyword_set = set(keyword.lower() for keyword in keywords)
         
-        # Weighted score
-        match_score = (exact_matches * 2 + partial_matches) / (len(all_keywords) * 2)
+        # Direct matches
+        direct_matches = len(text_words.intersection(keyword_set))
         
-        return min(1.0, match_score)
+        # Partial matches (substring)
+        partial_matches = 0
+        for keyword in keyword_set:
+            if any(keyword in word for word in text_words):
+                partial_matches += 1
+        
+        # Calculate frequency score
+        total_possible = len(keyword_set)
+        frequency_score = (direct_matches * 2 + partial_matches) / (total_possible * 2)
+        
+        return min(1.0, frequency_score)
     
-    def extract_meaningful_words(self, text: str) -> List[str]:
-        """Extract meaningful words from any text"""
+    def _calculate_text_similarity(self, text1: str, text2: str) -> float:
+        """Calculate text similarity using Jaccard coefficient"""
+        if not text1 or not text2:
+            return 0.0
         
-        # Common stop words to exclude
-        stop_words = {
-            'the', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 
-            'with', 'by', 'is', 'are', 'was', 'were', 'be', 'been', 'have', 
-            'has', 'had', 'do', 'does', 'did', 'will', 'would', 'should', 
-            'could', 'can', 'may', 'might', 'must', 'a', 'an', 'this', 
-            'that', 'these', 'those', 'from', 'up', 'down', 'out', 'off', 
-            'over', 'under', 'again', 'further', 'then', 'once'
-        }
+        words1 = set(re.findall(r'\b[a-zA-Z]{3,}\b', text1.lower()))
+        words2 = set(re.findall(r'\b[a-zA-Z]{3,}\b', text2.lower()))
         
-        # Extract words, filter by length and stop words
-        words = re.findall(r'\b[a-zA-Z]{3,}\b', text.lower())
-        meaningful_words = [word for word in words 
-                          if word not in stop_words and len(word) > 2]
+        if not words1 or not words2:
+            return 0.0
         
-        return list(set(meaningful_words))  # Remove duplicates
+        intersection = len(words1.intersection(words2))
+        union = len(words1.union(words2))
+        
+        return intersection / union if union > 0 else 0.0
     
-    def calculate_action_relevance(self, section_text: str, job_task: str) -> float:
-        """Score based on action words in job task"""
-        
-        # Extract action verbs from job task
-        action_words = re.findall(r'\b(create|make|build|manage|handle|organize|'
-                                r'develop|design|implement|execute|process|'
-                                r'analyze|review|evaluate|assess|plan|prepare|'
-                                r'distribute|collect|track|monitor|control|'
-                                r'maintain|update|modify|edit|convert|export|'
-                                r'import|share|send|receive|sign|fill|complete)\b', 
-                                job_task.lower())
-        
-        if not action_words:
-            return 0.5  # Neutral score if no clear actions
-        
-        # Check how many action words appear in section
-        action_matches = sum(1 for action in action_words if action in section_text)
-        
-        return min(1.0, action_matches / len(action_words))
-    
-    def calculate_generic_section_quality(self, section: Dict[str, Any]) -> float:
-        """Generic section quality without domain assumptions"""
-        
-        title = section['section_title']
+    def _calculate_section_quality(self, section: Dict[str, Any]) -> float:
+        """Universal section quality metrics"""
+        title = section.get('section_title', '')
         content = section.get('content', '')
         
         quality_score = 0.0
         
-        # Title quality checks
-        if len(title) >= 15 and len(title) <= 80:  # Good length
-            quality_score += 0.3
+        # Title quality
+        if title:
+            title_length = len(title)
+            if 10 <= title_length <= 80:  # Optimal title length
+                quality_score += 0.3
+            elif 5 <= title_length <= 120:  # Acceptable range
+                quality_score += 0.1
+            
+            # Title structure (starts with capital, not all caps unless short)
+            if title[0].isupper() and not (title.isupper() and len(title) > 20):
+                quality_score += 0.2
         
-        if title[0].isupper() and not title.endswith('.'):  # Proper header format
+        # Content quality
+        if content:
+            word_count = len(content.split())
+            if 50 <= word_count <= 500:  # Optimal content length
+                quality_score += 0.3
+            elif 20 <= word_count <= 800:  # Acceptable range
+                quality_score += 0.2
+            elif word_count > 0:
+                quality_score += 0.1
+        
+        # Avoid generic titles
+        generic_indicators = ['introduction', 'conclusion', 'overview', 'summary', 'preface', 'appendix']
+        if not any(generic.lower() in title.lower() for generic in generic_indicators):
             quality_score += 0.2
-        
-        if len(title.split()) >= 3:  # Multi-word titles are usually better
-            quality_score += 0.2
-        
-        # Content quality checks
-        word_count = len(content.split())
-        if 50 <= word_count <= 500:  # Good content length
-            quality_score += 0.3
-        elif word_count > 0:
-            quality_score += 0.1
         
         return min(1.0, quality_score)
     
-    def calculate_context_coherence(self, section_text: str, 
-                                  persona_context: Dict[str, Any]) -> float:
-        """How well the section fits the overall context"""
+    def _calculate_content_completeness(self, section: Dict[str, Any]) -> float:
+        """Measure content completeness using universal indicators"""
+        content = section.get('content', '').lower()
+        title = section.get('section_title', '').lower()
         
-        # Combine persona and job into context
-        full_context = f"{persona_context['persona_role']} {persona_context['job_task']}".lower()
-        context_words = set(self.extract_meaningful_words(full_context))
-        section_words = set(self.extract_meaningful_words(section_text))
+        if not content:
+            return 0.0
         
-        if not context_words or not section_words:
-            return 0.5
+        completeness_score = 0.0
         
-        # Calculate word overlap
-        overlap = len(context_words.intersection(section_words))
-        union = len(context_words.union(section_words))
+        # Check for structured content indicators
+        structure_indicators = [
+            r'\d+\.',  # Numbered lists
+            r'[•\-\*]',  # Bullet points
+            r':',  # Colons (definitions, explanations)
+            r';',  # Semicolons (detailed lists)
+        ]
         
-        # Jaccard similarity
-        if union == 0:
-            return 0.5
+        for pattern in structure_indicators:
+            if re.search(pattern, content):
+                completeness_score += 0.15
         
-        return overlap / union
+        # Check for explanatory content
+        explanation_words = ['how', 'what', 'why', 'when', 'where', 'which', 'because', 'since', 'therefore']
+        explanation_count = sum(1 for word in explanation_words if word in content)
+        completeness_score += min(0.3, explanation_count * 0.05)
+        
+        # Content-title alignment
+        title_words = set(re.findall(r'\b[a-zA-Z]{3,}\b', title))
+        content_words = set(re.findall(r'\b[a-zA-Z]{3,}\b', content))
+        
+        if title_words and content_words:
+            alignment = len(title_words.intersection(content_words)) / len(title_words)
+            completeness_score += alignment * 0.25
+        
+        return min(1.0, completeness_score)
     
-    def ensure_generic_diversity(self, ranked_sections: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-        """Generic document diversity without favorites"""
+    def _calculate_title_relevance(self, title: str, keywords: List[str]) -> float:
+        """Calculate how relevant the title is to the keywords"""
+        if not title or not keywords:
+            return 0.0
+        
+        title_lower = title.lower()
+        title_words = set(re.findall(r'\b[a-zA-Z]{3,}\b', title_lower))
+        keyword_set = set(keyword.lower() for keyword in keywords)
+        
+        if not title_words:
+            return 0.0
+        
+        # Direct word matches in title
+        matches = len(title_words.intersection(keyword_set))
+        
+        # Partial matches
+        partial_matches = sum(1 for keyword in keyword_set 
+                            if any(keyword in word for word in title_words))
+        
+        relevance = (matches * 2 + partial_matches) / (len(keyword_set) * 2)
+        return min(1.0, relevance)
+    
+    def _ensure_universal_diversity(self, ranked_sections: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """Ensure document diversity without domain-specific preferences"""
+        if not ranked_sections:
+            return []
+        
+        # Calculate optimal distribution
+        unique_docs = list(set(section['document'] for section in ranked_sections))
+        total_sections_needed = min(15, len(ranked_sections))
+        sections_per_doc = max(1, total_sections_needed // len(unique_docs))
         
         balanced_sections = []
         doc_counts = {}
-        total_docs = len(set(section['document'] for section in ranked_sections))
         
-        # Dynamic limit based on number of documents
-        max_per_doc = max(1, 15 // total_docs) if total_docs > 0 else 3
-        
+        # First pass: distribute evenly across documents
         for section in ranked_sections:
             doc = section['document']
-            if doc_counts.get(doc, 0) < max_per_doc:
+            if doc_counts.get(doc, 0) < sections_per_doc:
                 balanced_sections.append(section)
                 doc_counts[doc] = doc_counts.get(doc, 0) + 1
-            
-            if len(balanced_sections) >= 15:
+        
+        # Second pass: fill remaining slots with highest scoring sections
+        remaining_slots = total_sections_needed - len(balanced_sections)
+        for section in ranked_sections:
+            if len(balanced_sections) >= total_sections_needed:
                 break
+            if section not in balanced_sections:
+                balanced_sections.append(section)
         
-        # If we don't have enough sections, add more from high-scoring sections
-        if len(balanced_sections) < 5:
-            for section in ranked_sections:
-                if section not in balanced_sections:
-                    balanced_sections.append(section)
-                if len(balanced_sections) >= 5:
-                    break
-        
-        return balanced_sections
+        return balanced_sections[:total_sections_needed]

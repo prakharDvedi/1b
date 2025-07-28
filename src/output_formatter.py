@@ -7,37 +7,42 @@ class OutputFormatter:
                      ranked_sections: List[Dict[str, Any]],
                      subsections: List[Dict[str, Any]], 
                      start_time: float) -> Dict[str, Any]:
-        """Format the final output according to challenge requirements"""
+        """Universal output formatting"""
         
-        # Extract document filenames
-        input_documents = [doc['filename'] for doc in input_config.get('documents', [])]
-        if not input_documents:  # Fallback to section documents
+        # Extract document filenames universally
+        input_documents = []
+        if 'documents' in input_config and input_config['documents']:
+            input_documents = [doc.get('filename', doc.get('title', '')) 
+                             for doc in input_config['documents']]
+        else:
+            # Fallback: extract from sections
             input_documents = list(set(section['document'] for section in ranked_sections))
+            input_documents.sort()  # Consistent ordering
         
         # Format metadata
         metadata = {
             "input_documents": input_documents,
-            "persona": input_config['persona']['role'],
-            "job_to_be_done": input_config['job_to_be_done']['task'],
+            "persona": input_config['persona'].get('role', 'Unknown'),
+            "job_to_be_done": input_config['job_to_be_done'].get('task', 'Unknown'),
             "processing_timestamp": datetime.now().isoformat() + "Z"
         }
         
-        # Format extracted sections (top 15)
+        # Format extracted sections (limit to top 15)
         extracted_sections = []
         for section in ranked_sections[:15]:
             extracted_sections.append({
                 "document": section['document'],
-                "page_number": section['page_number'],
                 "section_title": section['section_title'],
-                "importance_rank": section['importance_rank']
+                "importance_rank": section['importance_rank'],
+                "page_number": section['page_number']
             })
         
-        # Format subsection analysis
+        # Format subsection analysis (limit for readability)
         subsection_analysis = []
-        for subsection in subsections:
+        for subsection in subsections[:10]:  # Limit to top 10
             subsection_analysis.append({
                 "document": subsection['document'],
-                "refined_text": subsection['refined_text'][:500],  # Limit length
+                "refined_text": subsection['refined_text'][:500],  # Reasonable length
                 "page_number": subsection['page_number']
             })
         

@@ -11,99 +11,150 @@
     ],
     "persona": "Travel Planner",
     "job_to_be_done": "Plan a trip of 4 days for a group of 10 college friends.",
-    "processing_timestamp": "2025-07-28T12:29:57.749008Z"
+    "processing_timestamp": "2025-07-28T20:45:20.364145Z"
   },
   "extracted_sections": [
     {
       "document": "South of France - Tips and Tricks.pdf",
-      "page_number": 1,
-      "section_title": "Introduction",
-      "importance_rank": 1
-    },
-    {
-      "document": "South of France - Things to Do.pdf",
-      "page_number": 1,
-      "section_title": "Introduction",
-      "importance_rank": 2
+      "section_title": "to travel tips, catering to all seasons and various activities. Whether you're traveling solo, with",
+      "importance_rank": 1,
+      "page_number": 1
     },
     {
       "document": "South of France - Tips and Tricks.pdf",
-      "page_number": 9,
-      "section_title": "Conclusion",
-      "importance_rank": 3
-    },
-    {
-      "document": "South of France - Cities.pdf",
-      "page_number": 8,
-      "section_title": "Key Attractions",
-      "importance_rank": 4
-    },
-    {
-      "document": "South of France - History.pdf",
-      "page_number": 10,
-      "section_title": "Key Historical Sites in Montpellier",
-      "importance_rank": 5
-    },
-    {
-      "document": "South of France - History.pdf",
-      "page_number": 1,
-      "section_title": "Introduction",
-      "importance_rank": 6
-    },
-    {
-      "document": "South of France - Cuisine.pdf",
-      "page_number": 8,
-      "section_title": "Conclusion",
-      "importance_rank": 7
-    },
-    {
-      "document": "South of France - Cuisine.pdf",
-      "page_number": 1,
-      "section_title": "Introduction",
-      "importance_rank": 8
-    },
-    {
-      "document": "South of France - Cities.pdf",
-      "page_number": 14,
-      "section_title": "Conclusion",
-      "importance_rank": 9
-    },
-    {
-      "document": "South of France - Restaurants and Hotels.pdf",
-      "page_number": 14,
-      "section_title": "Conclusion",
-      "importance_rank": 10
-    },
-    {
-      "document": "South of France - Restaurants and Hotels.pdf",
-      "page_number": 1,
-      "section_title": "Introduction",
-      "importance_rank": 11
+      "section_title": "Footwear: Waterproof boots and comfortable walking shoes.",
+      "importance_rank": 2,
+      "page_number": 3
     },
     {
       "document": "South of France - Things to Do.pdf",
-      "page_number": 4,
-      "section_title": "Water Activities",
-      "importance_rank": 12
+      "section_title": "Gaillac: Discover the unique wines of this lesser-known region.",
+      "importance_rank": 3,
+      "page_number": 5
+    },
+    {
+      "document": "South of France - History.pdf",
+      "section_title": "This guide will take you through the histories of major cities, famous historical sites, and other",
+      "importance_rank": 4,
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Cuisine.pdf",
+      "section_title": "Wine Regions and Types of Wines",
+      "importance_rank": 5,
+      "page_number": 5
+    },
+    {
+      "document": "South of France - Things to Do.pdf",
+      "section_title": "Culinary Delights",
+      "importance_rank": 6,
+      "page_number": 5
+    },
+    {
+      "document": "South of France - History.pdf",
+      "section_title": "Medieval Inquisition to imprison and torture suspected heretics9.",
+      "importance_rank": 7,
+      "page_number": 6
+    },
+    {
+      "document": "South of France - Restaurants and Hotels.pdf",
+      "section_title": "to eat and stay during your trip. From the vibrant cities of Nice and Marseille to the charming",
+      "importance_rank": 8,
+      "page_number": 14
+    },
+    {
+      "document": "South of France - Cuisine.pdf",
+      "section_title": "Famous Dishes",
+      "importance_rank": 9,
+      "page_number": 3
+    },
+    {
+      "document": "South of France - Cities.pdf",
+      "section_title": "Cultural Highlights",
+      "importance_rank": 10,
+      "page_number": 9
+    },
+    {
+      "document": "South of France - Cities.pdf",
+      "section_title": "Cultural Highlights",
+      "importance_rank": 11,
+      "page_number": 10
     },
     {
       "document": "South of France - Traditions and Culture.pdf",
-      "page_number": 2,
       "section_title": "Literature and Poetry",
-      "importance_rank": 13
+      "importance_rank": 12,
+      "page_number": 2
+    },
+    {
+      "document": "South of France - Restaurants and Hotels.pdf",
+      "section_title": "Whether you're looking for budget-friendly options, family-friendly spots, upscale dining, or",
+      "importance_rank": 13,
+      "page_number": 1
     },
     {
       "document": "South of France - Traditions and Culture.pdf",
-      "page_number": 3,
-      "section_title": "Traditional Sports and Games",
-      "importance_rank": 14
+      "section_title": "Proven\u00e7al Language",
+      "importance_rank": 14,
+      "page_number": 2
+    },
+    {
+      "document": "South of France - Tips and Tricks.pdf",
+      "section_title": "Stroller: A lightweight, foldable stroller for younger children.",
+      "importance_rank": 15,
+      "page_number": 6
     }
   ],
   "subsection_analysis": [
     {
+      "document": "South of France - Tips and Tricks.pdf",
+      "refined_text": "to travel tips, catering to all seasons and various activities. Whether you're traveling solo, with: kids, or in a group, this guide will help you make the most of your trip.",
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Tips and Tricks.pdf",
+      "refined_text": "Footwear: Waterproof boots and comfortable walking shoes.: Accessories: A scarf, sunglasses for sunny winter days, and a travelsized hand warmer.",
+      "page_number": 3
+    },
+    {
+      "document": "South of France - Things to Do.pdf",
+      "refined_text": "Gaillac: Discover the unique wines of this lesser-known region.: Bordeaux: Take a day trip to the worldrenowned wine region and visit its prestigious ch\u00e2teaux.",
+      "page_number": 5
+    },
+    {
+      "document": "South of France - History.pdf",
+      "refined_text": "This guide will take you through the histories of major cities, famous historical sites, and other: points of interest to help you plan an enriching and unforgettable trip.",
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Cuisine.pdf",
+      "refined_text": "Wine Regions and Types of Wines: The South of France is renowned for its diverse and exceptional wine regions. Here are some key areas to explore and the types of wines they produce:",
+      "page_number": 5
+    },
+    {
+      "document": "South of France - Things to Do.pdf",
+      "refined_text": "Culinary Delights: The South of France is a food lover's paradise. Here are some activities to indulge in the region's culinary delights:",
+      "page_number": 5
+    },
+    {
+      "document": "South of France - History.pdf",
+      "refined_text": "Medieval Inquisition to imprison and torture suspected heretics9.: Hoardings: Carcassonne was the first fortress to use wooden hoardings during sieges, allowing defenders to shoot arrows and drop projectiles on attackers below10.",
+      "page_number": 6
+    },
+    {
+      "document": "South of France - Restaurants and Hotels.pdf",
+      "refined_text": "to eat and stay during your trip. From the vibrant cities of Nice and Marseille to the charming: villages of Provence, the South of France promises an unforgettable travel experience. Bon voyage!",
+      "page_number": 14
+    },
+    {
+      "document": "South of France - Cuisine.pdf",
+      "refined_text": "Famous Dishes: The South of France is home to many iconic dishes that you must try during your visit: Bouillabaisse: A traditional fish stew from Marseille, made with various types of fish,",
+      "page_number": 3
+    },
+    {
       "document": "South of France - Cities.pdf",
-      "refined_text": "Atelier C\u00e9zanne: The studio of Paul C\u00e9zanne, one of the most famous painters associated with Aix-en-Provence, is preserved as a museum. Visitors can see where C\u00e9zanne created many of his masterpieces and gain insight into his artistic process.",
-      "page_number": 8
+      "refined_text": "Cultural Highlights: Toulouse is renowned for its vibrant cultural scene, with numerous theaters, music venues, and festivals. The city hosts the Toulouse International Art Festival, which features",
+      "page_number": 9
     }
   ]
 }

@@ -1,137 +1,66 @@
-from typing import Dict, Any, List
 import re
+from typing import Dict, Any, List
 
 class PersonaAnalyzer:
     def __init__(self):
-        # Enhanced persona expertise mappings for HR professional
-        self.persona_keywords = {
-            'hr_professional': [
-                # Core HR form keywords
-                'fillable forms', 'form creation', 'interactive forms', 'form fields',
-                'fill and sign', 'prepare forms', 'form wizard', 'form templates',
-                
-                # Onboarding and compliance
-                'onboarding', 'compliance', 'employee documentation', 'workflow',
-                'approval process', 'digital signatures', 'e-signatures',
-                
-                # Document management
-                'document management', 'form distribution', 'collect responses',
-                'track submissions', 'form validation', 'required fields',
-                
-                # HR processes
-                'employee forms', 'hiring documents', 'policy forms',
-                'training records', 'performance reviews', 'benefits enrollment'
-            ],
-            'travel_planner': [
-                'itinerary', 'accommodation', 'transportation', 'attractions',
-                'budget', 'schedule', 'booking', 'destinations', 'activities'
-            ],
-            'food_contractor': [
-                'recipes', 'ingredients', 'preparation', 'serving', 'catering',
-                'dietary', 'menu', 'buffet', 'vegetarian', 'corporate', 'event'
-            ]
-        }
+        # No predefined domain mappings - everything is dynamic
+        pass
     
     def analyze_persona(self, persona: Dict[str, Any], job: Dict[str, Any]) -> Dict[str, Any]:
-        """Analyze persona without ML dependencies"""
+        """Analyze persona dynamically without any domain assumptions"""
         
-        persona_role = persona.get('role', '').lower()
-        job_task = job.get('task', '')
+        persona_role = persona.get('role', '').strip()
+        job_task = job.get('task', '').strip()
         
-        # Create enhanced query
-        enhanced_query = self.create_enhanced_query(persona_role, job_task)
+        # Extract keywords purely from input text
+        persona_keywords = self._extract_keywords(persona_role)
+        job_keywords = self._extract_keywords(job_task)
+        action_words = self._extract_action_words(job_task)
         
-        # Extract comprehensive keywords
-        keywords = self.extract_comprehensive_keywords(persona_role, job_task)
+        # Combine all keywords
+        all_keywords = list(set(persona_keywords + job_keywords + action_words))
         
-        # Create context object (without embeddings)
         context = {
-            'persona_role': persona_role,
-            'job_task': job_task,
-            'query_embedding': None,  # No ML model needed
-            'keywords': keywords,
-            'combined_query': enhanced_query,
-            'is_hr_context': self.is_hr_context(persona_role, job_task),
-            'specific_needs': self.extract_specific_needs(job_task)
+            'persona_role': persona_role.lower(),
+            'job_task': job_task.lower(),
+            'keywords': all_keywords,
+            'combined_query': f"{persona_role} {job_task}".lower(),
+            'query_length': len(f"{persona_role} {job_task}".split())
         }
         
         return context
     
-    def create_enhanced_query(self, persona_role: str, job_task: str) -> str:
-        """Create enhanced query for HR professional"""
-        base_query = f"{persona_role}: {job_task}"
+    def _extract_keywords(self, text: str) -> List[str]:
+        """Extract meaningful keywords from any text"""
+        if not text:
+            return []
         
-        enhancements = []
+        # Universal stop words
+        stop_words = {
+            'the', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with',
+            'by', 'is', 'are', 'was', 'were', 'be', 'been', 'have', 'has', 'had',
+            'do', 'does', 'did', 'will', 'would', 'should', 'could', 'can', 'may',
+            'might', 'must', 'a', 'an', 'this', 'that', 'these', 'those', 'from',
+            'up', 'down', 'out', 'off', 'over', 'under', 'again', 'further', 'then'
+        }
         
-        if 'hr' in persona_role.lower() or 'human resources' in persona_role.lower():
-            enhancements.append("form creation fillable interactive")
+        # Extract words 3+ characters long
+        words = re.findall(r'\b[a-zA-Z]{3,}\b', text.lower())
+        meaningful_words = [word for word in words if word not in stop_words]
         
-        if 'fillable forms' in job_task.lower():
-            enhancements.append("prepare forms fill sign interactive fields")
-        
-        if 'onboarding' in job_task.lower():
-            enhancements.append("employee documents workflow signatures")
-        
-        if 'compliance' in job_task.lower():
-            enhancements.append("required fields validation tracking")
-        
-        if enhancements:
-            enhanced_query = f"{base_query} {' '.join(enhancements)}"
-        else:
-            enhanced_query = base_query
-        
-        return enhanced_query
+        return list(set(meaningful_words))
     
-    def extract_comprehensive_keywords(self, persona_role: str, job_task: str) -> List[str]:
-        """Extract comprehensive keyword list for HR professional"""
-        keywords = []
+    def _extract_action_words(self, text: str) -> List[str]:
+        """Extract action verbs from text using universal patterns"""
+        if not text:
+            return []
         
-        # Add persona-specific keywords
-        for persona_type, type_keywords in self.persona_keywords.items():
-            if persona_type in persona_role.replace(' ', '_').lower():
-                keywords.extend(type_keywords)
+        # Universal action verb pattern
+        action_pattern = r'\b(create|make|build|develop|design|manage|handle|organize|' \
+                        r'analyze|review|evaluate|assess|plan|prepare|implement|execute|' \
+                        r'process|generate|produce|deliver|provide|support|maintain|' \
+                        r'coordinate|facilitate|optimize|improve|enhance|update|modify|' \
+                        r'edit|convert|transform|compile|collect|gather|distribute|' \
+                        r'present|communicate|collaborate|lead|direct|supervise)\b'
         
-        # Add HR-specific keywords if HR persona
-        if 'hr' in persona_role.lower() or 'human resources' in persona_role.lower():
-            hr_specific = [
-                'forms', 'fillable', 'interactive', 'fields', 'signatures',
-                'workflow', 'compliance', 'onboarding', 'employee', 'create',
-                'manage', 'distribute', 'collect', 'track', 'validate'
-            ]
-            keywords.extend(hr_specific)
-        
-        # Extract keywords from job task
-        job_words = job_task.lower().split()
-        important_job_words = [
-            word for word in job_words 
-            if len(word) > 3 and word not in ['create', 'manage', 'forms']
-        ]
-        keywords.extend(important_job_words)
-        
-        return list(set(keywords))  # Remove duplicates
-    
-    def is_hr_context(self, persona_role: str, job_task: str) -> bool:
-        """Determine if this is HR context"""
-        hr_indicators = [
-            'hr', 'human resources', 'onboarding', 'compliance', 
-            'employee', 'forms', 'fillable'
-        ]
-        combined_text = f"{persona_role} {job_task}".lower()
-        return any(indicator in combined_text for indicator in hr_indicators)
-    
-    def extract_specific_needs(self, job_task: str) -> List[str]:
-        """Extract specific needs from job task"""
-        needs = []
-        
-        if 'create' in job_task.lower():
-            needs.append('form_creation')
-        if 'manage' in job_task.lower():
-            needs.append('form_management')
-        if 'fillable' in job_task.lower():
-            needs.append('interactive_forms')
-        if 'onboarding' in job_task.lower():
-            needs.append('onboarding_workflow')
-        if 'compliance' in job_task.lower():
-            needs.append('compliance_tracking')
-        
-        return needs
+        return re.findall(action_pattern, text.lower())

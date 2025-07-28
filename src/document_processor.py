@@ -3,60 +3,87 @@ import re
 import os
 from typing import List, Dict, Any
 
+# … existing imports …
+BULLET_RE = re.compile(r'^[•◦\-–o]\s+', re.UNICODE)   # bullets & “o ”
+
 class DocumentProcessor:
-    def __init__(self):
-        # Enhanced section patterns for Acrobat documentation
-        self.section_patterns = [
-            r'^[A-Z][A-Za-z\s]{15,80}$',  # Longer descriptive headers
-            r'^\d+\.?\s+[A-Z][A-Za-z\s]{10,80}$',  # Numbered sections
-            r'^[A-Z][A-Z\s]{10,80}$',  # ALL CAPS headers (longer)
-            r'^(Create|Convert|Fill|Sign|Edit|Export|Share|Prepare|Manage)\s+[A-Za-z\s]{5,50}',  # Action-based headers
-            r'^[A-Z][a-z]+\s+(forms?|PDFs?|documents?|signatures?)',  # Object-focused headers
-        ]
-        
-        # HR-specific important keywords for section detection
-        self.hr_keywords = [
-            'fillable forms', 'interactive forms', 'form creation', 'prepare forms',
-            'fill and sign', 'form fields', 'signatures', 'e-signatures',
-            'create forms', 'manage forms', 'form distribution', 'onboarding',
-            'compliance', 'workflow', 'employee', 'collect responses'
-        ]
+    # keep your __init__ & load_pdfs unchanged …
+
+    # ------------ REPLACE is_section_header WITH THIS -----------------
+    def is_generic_section_header(self, line:str, all_lines:list, idx:int) -> bool:
+        """Reject cooking steps & accept only real headers."""
+        # bullets / recipe steps → reject
+        if BULLET_RE.match(line.lower()):
+            return False
+        if line.startswith('o '):                  # leading “o ”
+            return False
+        # too short / ends with comma etc.
+        if len(line) < 8 or line[-1] in ',:;':
+            return False
+
+        # must start with capital letter
+        if not line[0].isupper():                 
+            return False
+
+        # must contain at least 2 words with capitalisation
+        words = line.split()
+        cap_words = sum(1 for w in words if w[0].isupper())
+        if cap_words < 2:
+            return False
+
+        # next two lines should look like body text ( > 25 chars )
+        nxt = ' '.join(all_lines[idx+1: idx+3])
+        if len(nxt) < 25:
+            return False
+
+        return True
+
     
     def load_pdfs(self, pdf_folder: str) -> List[Dict[str, Any]]:
-        """Load all PDFs from the folder"""
+        """Universal PDF loading"""
         documents = []
         
+        if not os.path.exists(pdf_folder):
+            return documents
+        
         for filename in os.listdir(pdf_folder):
-            if filename.endswith('.pdf'):
+            if filename.lower().endswith('.pdf'):
                 filepath = os.path.join(pdf_folder, filename)
-                doc = fitz.open(filepath)
-                
-                pages = []
-                for page_num in range(len(doc)):
-                    page = doc.load_page(page_num)
-                    text = page.get_text()
-                    pages.append({
-                        'page_number': page_num + 1,
-                        'text': text,
-                        'blocks': page.get_text("dict")["blocks"]
+                try:
+                    doc = fitz.open(filepath)
+                    
+                    pages = []
+                    for page_num in range(len(doc)):
+                        page = doc.load_page(page_num)
+                        text = page.get_text()
+                        pages.append({
+                            'page_number': page_num + 1,
+                            'text': text
+                        })
+                    
+                    documents.append({
+                        'filename': filename,
+                        'pages': pages,
+                        'total_pages': len(doc)
                     })
-                
-                documents.append({
-                    'filename': filename,
-                    'pages': pages,
-                    'total_pages': len(doc)
-                })
-                
-                doc.close()
+                    
+                    doc.close()
+                    
+                except Exception as e:
+                    print(f"Error loading {filename}: {e}")
+                    continue
         
         return documents
     
     def extract_sections(self, document: Dict[str, Any]) -> List[Dict[str, Any]]:
-        """Extract sections with enhanced HR focus"""
+        """Universal section extraction without domain bias"""
         sections = []
         
         for page in document['pages']:
             page_text = page['text']
+            if not page_text.strip():
+                continue
+            
             lines = page_text.split('\n')
             
             current_section = None
@@ -67,11 +94,11 @@ class DocumentProcessor:
                 if not line:
                     continue
                 
-                if self.is_hr_relevant_section_header(line, lines, i):
+                if self._is_universal_section_header(line, lines, i):
                     # Save previous section
                     if current_section and section_text:
-                        content = self.clean_text('\n'.join(section_text))
-                        if len(content) > 100:  # Higher minimum for quality
+                        content = self._clean_text(' '.join(section_text))
+                        if self._is_valid_section(current_section, content):
                             sections.append({
                                 'document': document['filename'],
                                 'page_number': page['page_number'],
@@ -88,8 +115,8 @@ class DocumentProcessor:
             
             # Save last section on page
             if current_section and section_text:
-                content = self.clean_text('\n'.join(section_text))
-                if len(content) > 100:
+                content = self._clean_text(' '.join(section_text))
+                if self._is_valid_section(current_section, content):
                     sections.append({
                         'document': document['filename'],
                         'page_number': page['page_number'],
@@ -100,168 +127,182 @@ class DocumentProcessor:
         
         return sections
     
-    def is_hr_relevant_section_header(self, line: str, all_lines: List[str], line_index: int) -> bool:
-        """Enhanced section header detection for HR relevance"""
+    def _is_universal_section_header(self, line: str, all_lines: List[str], line_index: int) -> bool:
+        """Universal section header detection"""
         
-        # Skip very short or fragmented headers
-        if len(line) < 10 or (line.endswith('.') and not line.endswith('(Acrobat Pro)')):
+        # Basic validation
+        if len(line) < 5 or len(line) > 120:
             return False
         
-        # Skip if it's clearly not a header (contains lots of numbers/symbols)
-        if len(re.findall(r'[0-9]', line)) > len(line) * 0.3:
+        # Skip obvious non-headers
+        if (line.endswith(',') or line.endswith(';') or 
+            line.startswith('•') or line.startswith('-') or line.startswith('*') or
+            line.lower().startswith(('and ', 'or ', 'but ', 'the ', 'a ', 'an '))):
             return False
         
-        # Check enhanced patterns
-        for pattern in self.section_patterns:
-            if re.match(pattern, line, re.IGNORECASE):
-                return True
+        # Check universal patterns
+        for pattern in self.universal_patterns:
+            if re.match(pattern, line):
+                return self._validate_header_context(line, all_lines, line_index)
         
-        # HR-specific header detection
-        line_lower = line.lower()
-        
-        # High-priority HR keywords in headers
-        hr_priority_terms = [
-            'fillable', 'interactive', 'form', 'sign', 'create', 'convert',
-            'fill', 'prepare', 'manage', 'distribute', 'collect', 'workflow'
-        ]
-        
-        if any(term in line_lower for term in hr_priority_terms):
-            # Additional validation for complete headers
-            if (len(line) > 15 and 
-                (line.istitle() or line.isupper() or 
-                 any(char.isupper() for char in line)) and
-                not line.endswith('.')):
-                return True
-        
-        # Check context - next few lines should be content
-        if line_index + 2 < len(all_lines):
-            next_lines = ' '.join(all_lines[line_index+1:line_index+3]).strip()
-            if (len(next_lines) > 50 and 
-                not next_lines.isupper() and
-                line.istitle()):
-                return True
+        # Additional heuristic checks
+        words = line.split()
+        if len(words) >= 2:
+            # Check if it looks like a proper header
+            if (line.istitle() and not line.endswith('.') and 
+                len(line) > 10 and len(line) < 80):
+                return self._validate_header_context(line, all_lines, line_index)
+            
+            # Check for descriptive headers
+            if (any(word[0].isupper() for word in words) and 
+                len([w for w in words if len(w) > 3]) >= 2 and
+                not any(char.isdigit() for char in line[:10])):  # Not starting with numbers
+                return self._validate_header_context(line, all_lines, line_index)
         
         return False
     
-    def clean_text(self, raw_text: str) -> str:
-        """Enhanced text cleaning for better readability"""
-        if not raw_text:
+    def _validate_header_context(self, line: str, all_lines: List[str], line_index: int) -> bool:
+        """Validate header by checking surrounding context"""
+        
+        # Check following lines contain substantial content
+        following_content = ""
+        for i in range(line_index + 1, min(line_index + 4, len(all_lines))):
+            following_content += " " + all_lines[i].strip()
+        
+        # Must have substantial following content
+        if len(following_content.strip()) < 30:
+            return False
+        
+        # Following content shouldn't be another header
+        next_line = all_lines[line_index + 1].strip() if line_index + 1 < len(all_lines) else ""
+        if next_line and (next_line.isupper() or next_line.istitle()) and len(next_line) < 50:
+            return False
+        
+        return True
+    
+    def _is_valid_section(self, title: str, content: str) -> bool:
+        """Validate section quality universally"""
+        
+        # Minimum content requirements
+        if not content or len(content.strip()) < 20:
+            return False
+        
+        # Title quality checks
+        if not title or len(title.strip()) < 5:
+            return False
+        
+        # Avoid sections that are just lists of single words
+        content_words = content.split()
+        if len(content_words) < 10:
+            return False
+        
+        # Check content-title relationship
+        title_words = set(re.findall(r'\b[a-zA-Z]{3,}\b', title.lower()))
+        content_words_set = set(re.findall(r'\b[a-zA-Z]{3,}\b', content.lower()))
+        
+        # Some overlap between title and content is expected
+        if title_words and content_words_set:
+            overlap = len(title_words.intersection(content_words_set))
+            if overlap == 0 and len(title_words) > 2:
+                return False
+        
+        return True
+    
+    def _clean_text(self, text: str) -> str:
+        """Universal text cleaning"""
+        if not text:
             return ""
         
-        # Remove bullet points and special characters
-        text = raw_text.replace('•', '')
-        text = text.replace('\u2022', '')
-        text = text.replace('◦', '')
+        # Remove bullet points and special formatting
+        text = re.sub(r'[•\-\*]\s*', '', text)
         
-        # Fix common Unicode issues
-        text = re.sub(r'\\u[0-9a-fA-F]{4}', '', text)
-        text = re.sub(r'\ufb00', 'ff', text)
-        text = re.sub(r'\ufb01', 'fi', text)
-        text = re.sub(r'\ufb02', 'fl', text)
-        
-        # Fix accented characters
+        # Fix Unicode issues
         unicode_fixes = {
-            '\u00e8': 'è', '\u00e9': 'é', '\u00ea': 'ê', '\u00eb': 'ë',
-            '\u00f4': 'ô', '\u00f6': 'ö', '\u00fc': 'ü', '\u00e7': 'ç'
+            '\ufb00': 'ff', '\ufb01': 'fi', '\ufb02': 'fl',
+            '\u00e8': 'è', '\u00e9': 'é', '\u00ea': 'ê',
+            '\u00f4': 'ô', '\u00f6': 'ö', '\u00fc': 'ü',
+            '\u2019': "'", '\u201c': '"', '\u201d': '"'
         }
+        
         for old, new in unicode_fixes.items():
             text = text.replace(old, new)
         
         # Normalize whitespace
         text = re.sub(r'\s+', ' ', text)
-        text = re.sub(r'\n\s*\n', '. ', text)
+        text = re.sub(r'\n+', ' ', text)
         
-        # Clean up formatting
-        text = text.replace('\n', ' ')
-        text = text.strip()
-        
-        # Remove excessive punctuation
-        text = re.sub(r'\.{2,}', '.', text)
-        text = re.sub(r'\s+\.', '.', text)
-        
-        return text
+        return text.strip()
     
     def extract_subsections(self, top_sections: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-        """Extract HR-focused subsections"""
+        """Universal subsection extraction"""
         subsections = []
         
         for section in top_sections:
-            content = section['content']
+            content = section.get('content', '').strip()
+            title = section['section_title']
             
-            # Split into sentences for better subsection creation
-            sentences = re.split(r'(?<=[.!?])\s+', content)
+            if not content:
+                continue
             
-            # Group sentences into meaningful subsections
-            current_subsection = ""
-            sentence_count = 0
+            # Create meaningful subsections
+            refined_text = self._create_universal_subsection(title, content)
             
-            for sentence in sentences:
-                sentence = sentence.strip()
-                if not sentence:
-                    continue
-                
-                # Add sentence to current subsection
-                if current_subsection:
-                    current_subsection += " " + sentence
-                else:
-                    current_subsection = sentence
-                
-                sentence_count += 1
-                
-                # Create subsection when we have good content
-                if ((sentence_count >= 2 and len(current_subsection) > 150) or 
-                    len(current_subsection) > 400):
-                    
-                    # Ensure proper ending
-                    if not current_subsection.endswith(('.', '!', '?')):
-                        current_subsection += '.'
-                    
-                    # Only include if it's HR-relevant
-                    if self.is_hr_relevant_content(current_subsection):
-                        subsections.append({
-                            'document': section['document'],
-                            'page_number': section['page_number'],
-                            'refined_text': current_subsection.strip(),
-                            'source_section': section['section_title']
-                        })
-                    
-                    current_subsection = ""
-                    sentence_count = 0
-            
-            # Add remaining content if substantial and relevant
-            if current_subsection and len(current_subsection) > 100:
-                if not current_subsection.endswith(('.', '!', '?')):
-                    current_subsection += '.'
-                
-                if self.is_hr_relevant_content(current_subsection):
-                    subsections.append({
-                        'document': section['document'],
-                        'page_number': section['page_number'],
-                        'refined_text': current_subsection.strip(),
-                        'source_section': section['section_title']
-                    })
+            if refined_text and len(refined_text) > 30:
+                subsections.append({
+                    'document': section['document'],
+                    'page_number': section['page_number'],
+                    'refined_text': refined_text,
+                    'source_section': title
+                })
         
         return subsections
     
-    def is_hr_relevant_content(self, content: str) -> bool:
-        """Check if content is relevant for HR professional"""
-        content_lower = content.lower()
+    def _create_universal_subsection(self, title: str, content: str) -> str:
+        """Create subsection using universal approach"""
         
-        # Must contain at least one HR-relevant term
-        hr_relevant_terms = [
-            'form', 'field', 'fill', 'sign', 'create', 'interactive',
-            'fillable', 'document', 'pdf', 'acrobat', 'employee',
-            'workflow', 'process', 'manage', 'distribute'
-        ]
+        # Strategy 1: If content is concise, use title + content
+        if len(content) <= 300:
+            return f"{title}: {content}"
         
-        relevant_count = sum(1 for term in hr_relevant_terms if term in content_lower)
+        # Strategy 2: Extract first meaningful sentences
+        sentences = re.split(r'(?<=[.!?])\s+', content)
+        if len(sentences) >= 2:
+            # Take first 2-3 sentences that form a coherent unit
+            selected_sentences = []
+            char_count = 0
+            
+            for sentence in sentences[:5]:  # Look at first 5 sentences
+                sentence = sentence.strip()
+                if len(sentence) > 10:  # Meaningful sentence
+                    selected_sentences.append(sentence)
+                    char_count += len(sentence)
+                    
+                    if len(selected_sentences) >= 2 and char_count > 150:
+                        break
+                    if char_count > 400:
+                        break
+            
+            if selected_sentences:
+                return f"{title}: {' '.join(selected_sentences)}"
         
-        # Should not contain too many irrelevant terms
-        irrelevant_terms = [
-            'generative ai', 'artificial intelligence', 'machine learning',
-            'visio', 'postscript', 'color management', 'prepress'
-        ]
+        # Strategy 3: Take first logical paragraph
+        paragraphs = [p.strip() for p in content.split('\n\n') if p.strip()]
+        if paragraphs:
+            first_para = paragraphs[0]
+            if len(first_para) > 50:
+                truncated = first_para[:400] if len(first_para) > 400 else first_para
+                return f"{title}: {truncated}"
         
-        irrelevant_count = sum(1 for term in irrelevant_terms if term in content_lower)
+        # Strategy 4: Fallback - truncate content intelligently
+        truncated = content[:300] if len(content) > 300 else content
+        # Try to end at a natural break
+        if len(content) > 300:
+            last_period = truncated.rfind('.')
+            last_space = truncated.rfind(' ')
+            
+            if last_period > 200:
+                truncated = truncated[:last_period + 1]
+            elif last_space > 250:
+                truncated = truncated[:last_space] + "..."
         
-        return relevant_count >= 2 and irrelevant_count == 0
+        return f"{title}: {truncated}"
