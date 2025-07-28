@@ -1,0 +1,330 @@
+{
+  "metadata": {
+    "input_documents": [
+      "South of France - Cities.pdf",
+      "South of France - Cuisine.pdf",
+      "South of France - History.pdf",
+      "South of France - Restaurants and Hotels.pdf",
+      "South of France - Things to Do.pdf",
+      "South of France - Tips and Tricks.pdf",
+      "South of France - Traditions and Culture.pdf"
+    ],
+    "persona": "Travel Planner",
+    "job_to_be_done": "Plan a trip of 4 days for a group of 10 college friends.",
+    "processing_timestamp": "2025-07-28T16:40:15.064501Z"
+  },
+  "extracted_sections": [
+    {
+      "document": "South of France - Restaurants and Hotels.pdf",
+      "page_number": 12,
+      "section_title": "Luxurious Hotels",
+      "importance_rank": 1
+    },
+    {
+      "document": "South of France - Restaurants and Hotels.pdf",
+      "page_number": 1,
+      "section_title": "Introduction",
+      "importance_rank": 2
+    },
+    {
+      "document": "South of France - Cuisine.pdf",
+      "page_number": 6,
+      "section_title": "Culinary Experiences",
+      "importance_rank": 3
+    },
+    {
+      "document": "South of France - Tips and Tricks.pdf",
+      "page_number": 4,
+      "section_title": "Packing for Adults",
+      "importance_rank": 4
+    },
+    {
+      "document": "South of France - Cities.pdf",
+      "page_number": 2,
+      "section_title": "Travel Tips",
+      "importance_rank": 5
+    },
+    {
+      "document": "South of France - Cities.pdf",
+      "page_number": 3,
+      "section_title": "Key Attractions",
+      "importance_rank": 6
+    },
+    {
+      "document": "South of France - Tips and Tricks.pdf",
+      "page_number": 1,
+      "section_title": "Introduction",
+      "importance_rank": 7
+    },
+    {
+      "document": "South of France - Things to Do.pdf",
+      "page_number": 1,
+      "section_title": "Introduction",
+      "importance_rank": 8
+    },
+    {
+      "document": "South of France - Cuisine.pdf",
+      "page_number": 1,
+      "section_title": "Introduction",
+      "importance_rank": 9
+    },
+    {
+      "document": "South of France - Things to Do.pdf",
+      "page_number": 9,
+      "section_title": "Theme Parks and Attractions",
+      "importance_rank": 10
+    },
+    {
+      "document": "South of France - Traditions and Culture.pdf",
+      "page_number": 1,
+      "section_title": "Introduction",
+      "importance_rank": 11
+    },
+    {
+      "document": "South of France - History.pdf",
+      "page_number": 1,
+      "section_title": "Introduction",
+      "importance_rank": 12
+    },
+    {
+      "document": "South of France - Traditions and Culture.pdf",
+      "page_number": 5,
+      "section_title": "Conclusion",
+      "importance_rank": 13
+    },
+    {
+      "document": "South of France - History.pdf",
+      "page_number": 12,
+      "section_title": "Conclusion",
+      "importance_rank": 14
+    },
+    {
+      "document": "South of France - Restaurants and Hotels.pdf",
+      "page_number": 4,
+      "section_title": "Upscale Restaurants",
+      "importance_rank": 15
+    }
+  ],
+  "subsection_analysis": [
+    {
+      "document": "South of France - Restaurants and Hotels.pdf",
+      "refined_text": "Grand-H\u00f4tel du Cap-Ferrat, A Four Seasons Hotel (Saint-Jean-Cap-Ferrat): A luxurious hotel set on 7 hectares of Mediterranean gardens, offering elegant rooms, a spa, and a private beach. The exclusive setting and world-class amenities make it a top choice for luxury travelers.",
+      "page_number": 12
+    },
+    {
+      "document": "South of France - Restaurants and Hotels.pdf",
+      "refined_text": "H\u00f4tel de Paris Monte-Carlo (Monaco): A luxurious hotel located in the heart of Monaco, offering opulent rooms, a world-class spa, and several Michelin-starred restaurants. The historic grandeur and exceptional service make it a premier destination.",
+      "page_number": 12
+    },
+    {
+      "document": "South of France - Restaurants and Hotels.pdf",
+      "refined_text": "Ch\u00e2teau Saint-Martin & Spa (Vence): A luxurious hotel set in a historic ch\u00e2teau, offering elegant rooms, a Michelin-starred restaurant, and a world-class spa. The tranquil setting and luxurious amenities make it a perfect getaway.",
+      "page_number": 12
+    },
+    {
+      "document": "South of France - Restaurants and Hotels.pdf",
+      "refined_text": "Airelles Ch\u00e2teau de la Messardi\u00e8re (Saint-Tropez): A luxurious hotel set in a historic ch\u00e2teau, offering elegant rooms, beautiful gardens, and stunning views of the Mediterranean. The refined ambiance and top-tier services make it a standout choice for luxury accommodations.",
+      "page_number": 12
+    },
+    {
+      "document": "South of France - Restaurants and Hotels.pdf",
+      "refined_text": "H\u00f4tel du Cap-Eden-Roc (Antibes): A legendary hotel offering luxurious rooms, a private beach, and a world-class spa. The stunning location and impeccable service make it a favorite among celebrities and discerning travelers.",
+      "page_number": 12
+    },
+    {
+      "document": "South of France - Restaurants and Hotels.pdf",
+      "refined_text": "La R\u00e9serve Ramatuelle (Ramatuelle): A luxurious hotel offering elegant rooms, a spa, and breathtaking views of the Mediterranean. The serene setting and exceptional service make it a top choice for a relaxing retreat.",
+      "page_number": 12
+    },
+    {
+      "document": "South of France - Restaurants and Hotels.pdf",
+      "refined_text": "Villa La Coste (Le Puy-Sainte-R\u00e9parade): A luxurious hotel set in a vineyard, offering elegant rooms, a spa, and a Michelin-starred restaurant. The artistic ambiance and world-class amenities make it a unique and memorable stay.",
+      "page_number": 12
+    },
+    {
+      "document": "South of France - Restaurants and Hotels.pdf",
+      "refined_text": "H\u00f4tel Hermitage Monte-Carlo (Monaco): A luxurious hotel offering opulent rooms, a world-class spa, and several fine dining options. The historic charm and exceptional service make it a premier destination in Monaco.",
+      "page_number": 12
+    },
+    {
+      "document": "South of France - Restaurants and Hotels.pdf",
+      "refined_text": "Le Byblos (Saint-Tropez): A luxurious hotel offering elegant rooms, a spa, and a vibrant nightlife scene. The glamorous setting and top-notch amenities make it a favorite among the jet set.",
+      "page_number": 12
+    },
+    {
+      "document": "South of France - Restaurants and Hotels.pdf",
+      "refined_text": "The South of France, known for its stunning landscapes, rich cultural heritage, and exquisite cuisine, is a dream destination for travelers. From the glamorous beaches of the French Riviera to the charming villages of Provence, this region offers a diverse array of experiences.",
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Restaurants and Hotels.pdf",
+      "refined_text": "Whether you're looking for budget-friendly options, family-friendly spots, upscale dining, or luxurious experiences, this guide will help you find the perfect restaurants and hotels for your trip.",
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Cuisine.pdf",
+      "refined_text": "In addition to dining at top restaurants, there are several culinary experiences you should consider: Cooking Classes: Many towns and cities in the South of France offer cooking classes where you can learn to prepare traditional dishes like bouillabaisse, ratatouille, and tarte trop\u00e9zienne. These classes are a great way to immerse yourself in the local culture and gain hands-on experience with regional recipes.",
+      "page_number": 6
+    },
+    {
+      "document": "South of France - Cuisine.pdf",
+      "refined_text": "Some classes even include a visit to a local market to shop for fresh ingredients. Food Markets: Visit local markets such as the Cours Saleya Market in Nice or the March\u00e9 Forville in Cannes to sample fresh produce, cheeses, and charcuterie.",
+      "page_number": 6
+    },
+    {
+      "document": "South of France - Cuisine.pdf",
+      "refined_text": "These markets are a feast for the senses, with stalls overflowing with colorful fruits and vegetables, fragrant herbs, and artisanal products. Take the time to chat with the vendors and learn about the local specialties.",
+      "page_number": 6
+    },
+    {
+      "document": "South of France - Cuisine.pdf",
+      "refined_text": "Wine Tours: The South of France is renowned for its wine regions, including Provence and Languedoc. Take a wine tour to visit vineyards, taste local wines, and learn about the winemaking process.",
+      "page_number": 6
+    },
+    {
+      "document": "South of France - Cuisine.pdf",
+      "refined_text": "Many wineries offer guided tours and tastings, giving you the opportunity to sample a variety of wines and discover new favorites. Don't miss the chance to try ros\u00e9 from Provence, which is famous for its light, refreshing flavor.",
+      "page_number": 6
+    },
+    {
+      "document": "South of France - Cuisine.pdf",
+      "refined_text": "Olive Oil Tasting: The region is famous for its olive oil. Visit an olive grove to learn about olive oil production and enjoy a tasting session.",
+      "page_number": 6
+    },
+    {
+      "document": "South of France - Cuisine.pdf",
+      "refined_text": "You'll have the chance to sample different varieties of olive oil and learn about the nuances of flavor and aroma. Many olive groves also produce other products like tapenade and olive soap, which make great souvenirs.",
+      "page_number": 6
+    },
+    {
+      "document": "South of France - Cuisine.pdf",
+      "refined_text": "Tru\ufb04e Hunting: The South of France is known for its tru\ufb04es, particularly the black tru\ufb04es from the P\u00e9rigord region. Join a tru\ufb04e hunting tour to experience the thrill of searching for these prized fungi.",
+      "page_number": 6
+    },
+    {
+      "document": "South of France - Cuisine.pdf",
+      "refined_text": "You'll be accompanied by a trained tru\ufb04e dog and a knowledgeable guide who will teach you about the tru\ufb04e's history and culinary uses. After the hunt, enjoy a tru\ufb04e-themed meal featuring your freshly harvested finds.",
+      "page_number": 6
+    },
+    {
+      "document": "South of France - Cuisine.pdf",
+      "refined_text": "Farm-to-Table Dining: Many restaurants in the South of France embrace the farm-to- table philosophy, sourcing their ingredients from local farms and producers. Look for restaurants that highlight seasonal, locally grown produce and sustainably raised meats.",
+      "page_number": 6
+    },
+    {
+      "document": "South of France - Cuisine.pdf",
+      "refined_text": "Dining at a farm-to-table restaurant is a wonderful way to support local agriculture and enjoy the freshest ingredients available.",
+      "page_number": 6
+    },
+    {
+      "document": "South of France - Tips and Tricks.pdf",
+      "refined_text": "Clothing Casual Wear: Comfortable clothes for sightseeing and casual dining, like jeans, t- shirts, and casual dresses. Evening Wear: Dressier outfits for dining out or events.",
+      "page_number": 4
+    },
+    {
+      "document": "South of France - Tips and Tricks.pdf",
+      "refined_text": "Pack a nice dress or dress pants and a blouse/shirt. Active Wear: If you plan on hiking or outdoor activities, pack activewear like leggings, shorts, and moisture-wicking tops.",
+      "page_number": 4
+    },
+    {
+      "document": "South of France - Tips and Tricks.pdf",
+      "refined_text": "Swimwear: Don't forget your swimsuit for beach or pool visits. Accessories: A stylish yet functional bag, a lightweight scarf, and a versatile jacket.",
+      "page_number": 4
+    },
+    {
+      "document": "South of France - Tips and Tricks.pdf",
+      "refined_text": "Additional Tips: Pack a few statement pieces that can be dressed up or down, such as a versatile dress or a pair of stylish shoes. Toiletries Basic Toiletries: Toothbrush, toothpaste, shampoo, conditioner, body wash, deodorant, and personal hygiene items.",
+      "page_number": 4
+    },
+    {
+      "document": "South of France - Tips and Tricks.pdf",
+      "refined_text": "Skincare: Sunscreen, moisturizer, and daily skincare products. Makeup: Pack essentials in a travel-sized makeup bag.",
+      "page_number": 4
+    },
+    {
+      "document": "South of France - Tips and Tricks.pdf",
+      "refined_text": "Additional Items: A small sewing kit, nail clippers, and a razor. Additional Tips: Consider packing a travel-sized perfume or cologne to freshen up on the go.",
+      "page_number": 4
+    },
+    {
+      "document": "South of France - Cities.pdf",
+      "refined_text": "Best Time to Visit: The best time to visit the South of France is during the spring (April to June) and fall (September to October) when the weather is pleasant, and the tourist crowds are smaller. Transportation: The region is well-connected by an extensive network of trains, buses, and flights.",
+      "page_number": 2
+    },
+    {
+      "document": "South of France - Cities.pdf",
+      "refined_text": "Renting a car is also a great option for exploring the countryside and smaller towns. Language: While French is the o\ufb03cial language, English is widely spoken in tourist areas.",
+      "page_number": 2
+    },
+    {
+      "document": "South of France - Cities.pdf",
+      "refined_text": "Learning a few basic French phrases can enhance your travel experience.",
+      "page_number": 2
+    },
+    {
+      "document": "South of France - Cities.pdf",
+      "refined_text": "Old Port (Vieux-Port): The heart of Marseille, the Old Port has been a bustling harbor for over 2,600 years. Today, it is a lively area filled with cafes, restaurants, and markets.",
+      "page_number": 3
+    },
+    {
+      "document": "South of France - Cities.pdf",
+      "refined_text": "Basilica of Notre-Dame de la Garde: This iconic basilica, perched on a hill overlooking the city, offers panoramic views of Marseille and the Mediterranean Sea. Built in the 19th century, it is a symbol of the city's maritime heritage.",
+      "page_number": 3
+    },
+    {
+      "document": "South of France - Cities.pdf",
+      "refined_text": "MuCEM (Museum of European and Mediterranean Civilizations): This modern museum explores the cultural history of the Mediterranean region through a variety of exhibits and interactive displays. Le Panier: The oldest district in Marseille, Le Panier is a maze of narrow streets, colorful buildings, and historic landmarks.",
+      "page_number": 3
+    },
+    {
+      "document": "South of France - Cities.pdf",
+      "refined_text": "It's a great place to explore the city's past and enjoy its vibrant culture.",
+      "page_number": 3
+    },
+    {
+      "document": "South of France - Tips and Tricks.pdf",
+      "refined_text": "Planning a trip to the South of France requires thoughtful preparation to ensure a comfortable and enjoyable experience. This guide covers everything from packing essentials to travel tips, catering to all seasons and various activities.",
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Tips and Tricks.pdf",
+      "refined_text": "Whether you're traveling solo, with kids, or in a group, this guide will help you make the most of your trip.",
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Things to Do.pdf",
+      "refined_text": "The South of France, with its stunning coastline, picturesque villages, and vibrant cities, offers a wealth of activities and experiences for travelers. Whether you're seeking adventure, relaxation, or cultural enrichment, this region has something for everyone.",
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Things to Do.pdf",
+      "refined_text": "This guide will take you through a variety of activities and must-see attractions to help you plan an unforgettable trip.",
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Cuisine.pdf",
+      "refined_text": "The South of France, known for its stunning landscapes and charming villages, is also a paradise for food lovers. The region's cuisine is a delightful blend of Mediterranean flavors, fresh ingredients, and traditional recipes passed down through generations.",
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Cuisine.pdf",
+      "refined_text": "This guide will take you through the different types of food, famous dishes, must-visit restaurants, renowned wine regions, and the types of wines they produce to help you plan an unforgettable culinary adventure.",
+      "page_number": 1
+    },
+    {
+      "document": "South of France - Things to Do.pdf",
+      "refined_text": "Antibes: Visit Marineland for marine shows and an aquarium. Fr\u00e9jus: Cool off at Aqualand water park. Villeneuve-Loubet: Enjoy quirky attractions at Le Village des Fous.",
+      "page_number": 9
+    },
+    {
+      "document": "South of France - Things to Do.pdf",
+      "refined_text": "Monteux: Spend a day at Parc Spirou, a theme park based on the famous comic book character. La Palmyre: Explore the La Palmyre Zoo, home to a wide variety of animals.",
+      "page_number": 9
+    },
+    {
+      "document": "South of France - Things to Do.pdf",
+      "refined_text": "Cap d'Agde: Have fun at Luna Park, an amusement park with rides and games. Toulouse: Visit the Cit\u00e9 de l'Espace, a space-themed science museum with interactive exhibits.",
+      "page_number": 9
+    }
+  ]
+}
