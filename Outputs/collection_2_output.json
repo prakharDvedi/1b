@@ -1,0 +1,178 @@
+{
+  "metadata": {
+    "input_documents": [
+      "Learn Acrobat - Create and Convert_1.pdf",
+      "Learn Acrobat - Create and Convert_2.pdf",
+      "Learn Acrobat - Edit_1.pdf",
+      "Learn Acrobat - Edit_2.pdf",
+      "Learn Acrobat - Export_1.pdf",
+      "Learn Acrobat - Export_2.pdf",
+      "Learn Acrobat - Fill and Sign.pdf",
+      "Learn Acrobat - Generative AI_1.pdf",
+      "Learn Acrobat - Generative AI_2.pdf",
+      "Learn Acrobat - Request e-signatures_1.pdf",
+      "Learn Acrobat - Request e-signatures_2.pdf",
+      "Learn Acrobat - Share_1.pdf",
+      "Learn Acrobat - Share_2.pdf",
+      "Test Your Acrobat Exporting Skills.pdf",
+      "The Ultimate PDF Sharing Checklist.pdf"
+    ],
+    "persona": "HR professional",
+    "job_to_be_done": "Create and manage fillable forms for onboarding and compliance.",
+    "processing_timestamp": "2025-07-28T17:56:30.031360Z"
+  },
+  "extracted_sections": [
+    {
+      "document": "Learn Acrobat - Request e-signatures_1.pdf",
+      "page_number": 19,
+      "section_title": "Download Form Field Data - Downloads a CSV file of the field-level content for all",
+      "importance_rank": 1
+    },
+    {
+      "document": "Learn Acrobat - Create and Convert_1.pdf",
+      "page_number": 15,
+      "section_title": "Create a PDF and share the link for viewing or commenting",
+      "importance_rank": 2
+    },
+    {
+      "document": "Learn Acrobat - Create and Convert_2.pdf",
+      "page_number": 12,
+      "section_title": "Create a PDF using the Print command (Mac OS X)",
+      "importance_rank": 3
+    },
+    {
+      "document": "Learn Acrobat - Share_1.pdf",
+      "page_number": 11,
+      "section_title": "Send personalized invitations for commenting",
+      "importance_rank": 4
+    },
+    {
+      "document": "Learn Acrobat - Export_1.pdf",
+      "page_number": 23,
+      "section_title": "Generate Tags For Untagged Files",
+      "importance_rank": 5
+    },
+    {
+      "document": "Learn Acrobat - Generative AI_1.pdf",
+      "page_number": 11,
+      "section_title": "Select multiple files",
+      "importance_rank": 6
+    },
+    {
+      "document": "Learn Acrobat - Edit_2.pdf",
+      "page_number": 7,
+      "section_title": "If the document includes bookmarks, it creates one document for every top-level",
+      "importance_rank": 7
+    },
+    {
+      "document": "Learn Acrobat - Edit_1.pdf",
+      "page_number": 9,
+      "section_title": "To create a numbered or bulleted list:",
+      "importance_rank": 8
+    },
+    {
+      "document": "Learn Acrobat - Share_2.pdf",
+      "page_number": 2,
+      "section_title": "Show annotations and drawing markup tools",
+      "importance_rank": 9
+    },
+    {
+      "document": "Learn Acrobat - Generative AI_2.pdf",
+      "page_number": 18,
+      "section_title": "License deployment",
+      "importance_rank": 10
+    },
+    {
+      "document": "The Ultimate PDF Sharing Checklist.pdf",
+      "page_number": 3,
+      "section_title": "\u2022  Create and Share the Link",
+      "importance_rank": 11
+    },
+    {
+      "document": "Learn Acrobat - Request e-signatures_2.pdf",
+      "page_number": 1,
+      "section_title": "Adobe LiveCycleRights Management (ALCRM) servers let you define centralized policies to",
+      "importance_rank": 12
+    },
+    {
+      "document": "Learn Acrobat - Fill and Sign.pdf",
+      "page_number": 8,
+      "section_title": "Fill in interactive forms",
+      "importance_rank": 13
+    },
+    {
+      "document": "Learn Acrobat - Export_2.pdf",
+      "page_number": 2,
+      "section_title": "Export objects to separate PDF",
+      "importance_rank": 14
+    },
+    {
+      "document": "Test Your Acrobat Exporting Skills.pdf",
+      "page_number": 1,
+      "section_title": "1. Yes or No: Can you save a PDF in text format to use with a screen reader?",
+      "importance_rank": 15
+    }
+  ],
+  "subsection_analysis": [
+    {
+      "document": "Learn Acrobat - Request e-signatures_1.pdf",
+      "refined_text": "child agreements spawned from this parent Bulk Send that have been completed. Download Individual Files - Provides the option to download the individual PDF files if multiple files were used to create the web form.",
+      "page_number": 19
+    },
+    {
+      "document": "Learn Acrobat - Request e-signatures_1.pdf",
+      "refined_text": "Shared web forms can be viewed on the Manage page, but do not allow editing. A PDF copy of the Bulk Send parent document (without added fields) is emailed to the sharee.",
+      "page_number": 19
+    },
+    {
+      "document": "Learn Acrobat - Create and Convert_1.pdf",
+      "refined_text": "Applicable to Microsoft Word, Excel, and PowerPoint 1. Open the file in the application used to create it. 2. Do any of the following: From the Home tab, choose Create PDF and share link.",
+      "page_number": 15
+    },
+    {
+      "document": "Learn Acrobat - Create and Convert_2.pdf",
+      "refined_text": "The method for creating PDFs using the Print command changed in Mac OS v10.6 Snow Leopard with Acrobat 9.1 and later. The following procedure describes the method in both Snow Leopard and earlier versions of Mac OS X.",
+      "page_number": 12
+    },
+    {
+      "document": "Learn Acrobat - Share_1.pdf",
+      "refined_text": "1. Open the PDF in Acrobat. 2. Select Share. Note: The computer must be connected to the Internet to start a shared review in Acrobat. You can also start a shared review directly from other applications that use PDFMaker, such as Microsoft Word.",
+      "page_number": 11
+    },
+    {
+      "document": "Learn Acrobat - Export_1.pdf",
+      "refined_text": "Generates tags for files not already tagged, such as PDFs created using Acrobat 4.0 or earlier. If this option isn't selected, untagged files are not converted.",
+      "page_number": 23
+    },
+    {
+      "document": "Learn Acrobat - Export_1.pdf",
+      "refined_text": "Note: Tags are applied only as part of the conversion process and are discarded after the conversion. This is not a method for creating tagged PDFs from legacy files.",
+      "page_number": 23
+    },
+    {
+      "document": "Learn Acrobat - Generative AI_1.pdf",
+      "refined_text": "Acrobat creates a collection of the selected files and opens the document. 2. Select Get started. 3. Select from the sample questions that are displayed based on the content of your PDF file.",
+      "page_number": 11
+    },
+    {
+      "document": "Learn Acrobat - Generative AI_1.pdf",
+      "refined_text": "Alternatively, type your question in the message field. 4. The answer to your question is displayed. The relevant sources are marked with numbers. You can do the following: Select a number to navigate directly to the corresponding section of the document.",
+      "page_number": 11
+    },
+    {
+      "document": "Learn Acrobat - Edit_1.pdf",
+      "refined_text": "1. Place the cursor in the document at the location where you want to add a list. 2. Choose the appropriate list type under Format Text.",
+      "page_number": 9
+    },
+    {
+      "document": "Learn Acrobat - Share_2.pdf",
+      "refined_text": "Annotations and markup tools don\u2019t appear by default, except when you open a PDF in a managed review workflow. 1. Choose the Comments icon on the right pane to see the added comments.",
+      "page_number": 2
+    },
+    {
+      "document": "Learn Acrobat - Generative AI_2.pdf",
+      "refined_text": "You can manage the deployment of Acrobat AI Assistant through the Adobe Admin Console. As an admin, you must add users to the Admin Console using one of the methods described.",
+      "page_number": 18
+    }
+  ]
+}
