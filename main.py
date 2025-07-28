@@ -1,7 +1,4 @@
 #!/usr/bin/env python3
-"""
-Main entry point for Challenge 1B: Persona-Driven Document Intelligence
-"""
 
 import json
 import os
@@ -22,13 +19,12 @@ class DocumentIntelligenceSystem:
         self.output_formatter = OutputFormatter()
         print("System initialized successfully!")
     
+    # Process a single document collection with enhanced logic
     def process_collection(self, collection_path):
-        """Process a single document collection with enhanced logic"""
         print(f"Processing collection: {collection_path}")
         start_time = time.time()
         
         try:
-            # Load input configuration
             input_file = os.path.join(collection_path, "challenge1b_input.json")
             if not os.path.exists(input_file):
                 print(f"Error: Input file {input_file} not found")
@@ -39,7 +35,6 @@ class DocumentIntelligenceSystem:
             
             print(f"Loaded configuration for persona: {input_config['persona']['role']}")
             
-            # Load and process PDFs
             pdf_folder = os.path.join(collection_path, "PDFs")
             if not os.path.exists(pdf_folder):
                 print(f"Error: PDF folder {pdf_folder} not found")
@@ -49,7 +44,6 @@ class DocumentIntelligenceSystem:
             documents = self.doc_processor.load_pdfs(pdf_folder)
             print(f"Loaded {len(documents)} documents")
             
-            # Extract sections from all documents
             print("Extracting sections from documents...")
             all_sections = []
             for doc in documents:
@@ -59,14 +53,12 @@ class DocumentIntelligenceSystem:
             
             print(f"Total sections extracted: {len(all_sections)}")
             
-            # Analyze persona and job requirements
             print("Analyzing persona and job requirements...")
             persona_context = self.persona_analyzer.analyze_persona(
                 input_config["persona"], 
                 input_config["job_to_be_done"]
             )
             
-            # Score and rank sections
             print("Scoring and ranking sections...")
             ranked_sections = self.relevance_scorer.score_sections(
                 all_sections, persona_context
@@ -76,24 +68,21 @@ class DocumentIntelligenceSystem:
             for i, section in enumerate(ranked_sections[:5]):
                 print(f"  {i+1}. {section['section_title'][:50]}... (Score: {section['relevance_score']:.3f})")
             
-            # Extract top subsections
             print("Extracting subsections...")
             subsections = self.doc_processor.extract_subsections(
-                ranked_sections[:10]  # Top 10 sections
+                ranked_sections[:10]
             )
             
             print(f"Generated {len(subsections)} subsections")
             
-            # Format output
             print("Formatting output...")
             output_data = self.output_formatter.format_output(
                 input_config, ranked_sections, subsections, start_time
             )
             
-            # Save results to Outputs directory for Docker volume mount
             outputs_dir = "/app/Outputs"
             if not os.path.exists(outputs_dir):
-                outputs_dir = "Outputs"  # Fallback for local execution
+                outputs_dir = "Outputs"
             
             collection_name = os.path.basename(collection_path).replace(" ", "_").lower()
             output_file = os.path.join(outputs_dir, f"{collection_name}_output.json")
@@ -113,6 +102,7 @@ class DocumentIntelligenceSystem:
             traceback.print_exc()
             return None
 
+# Main entry point for the application
 def main():
     if len(sys.argv) != 2:
         print("Usage: python main.py <collection_path>")
@@ -124,7 +114,6 @@ def main():
     
     collection_path = sys.argv[1]
     
-    # Initialize and run the system
     system = DocumentIntelligenceSystem()
     result = system.process_collection(collection_path)
     
