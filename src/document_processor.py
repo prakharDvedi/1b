@@ -5,21 +5,21 @@ from typing import List, Dict, Any
 
 class DocumentProcessor:
     def __init__(self):
-        # Improved section patterns for better detection
+        # Enhanced section patterns for Acrobat documentation
         self.section_patterns = [
-            r'^[A-Z][A-Za-z\s]{10,80}$',  # Title case headers (minimum 10 chars)
-            r'^\d+\.?\s+[A-Z][A-Za-z\s]{5,80}$',  # Numbered sections
-            r'^[A-Z][A-Z\s]{5,80}$',  # ALL CAPS headers (minimum 5 chars)
-            r'^Chapter\s+\d+:?\s+[A-Za-z\s]{3,50}$',  # Chapter headers
-            r'^Section\s+\d+:?\s+[A-Za-z\s]{3,50}$',  # Section headers
+            r'^[A-Z][A-Za-z\s]{15,80}$',  # Longer descriptive headers
+            r'^\d+\.?\s+[A-Z][A-Za-z\s]{10,80}$',  # Numbered sections
+            r'^[A-Z][A-Z\s]{10,80}$',  # ALL CAPS headers (longer)
+            r'^(Create|Convert|Fill|Sign|Edit|Export|Share|Prepare|Manage)\s+[A-Za-z\s]{5,50}',  # Action-based headers
+            r'^[A-Z][a-z]+\s+(forms?|PDFs?|documents?|signatures?)',  # Object-focused headers
         ]
         
-        # Keywords that indicate important sections for travel planning
-        self.important_keywords = [
-            'guide', 'overview', 'introduction', 'cities', 'attractions', 
-            'activities', 'accommodation', 'restaurants', 'hotels', 'tips',
-            'planning', 'itinerary', 'transportation', 'nightlife', 'cuisine',
-            'experiences', 'adventures', 'entertainment', 'cultural', 'packing'
+        # HR-specific important keywords for section detection
+        self.hr_keywords = [
+            'fillable forms', 'interactive forms', 'form creation', 'prepare forms',
+            'fill and sign', 'form fields', 'signatures', 'e-signatures',
+            'create forms', 'manage forms', 'form distribution', 'onboarding',
+            'compliance', 'workflow', 'employee', 'collect responses'
         ]
     
     def load_pdfs(self, pdf_folder: str) -> List[Dict[str, Any]]:
@@ -31,7 +31,6 @@ class DocumentProcessor:
                 filepath = os.path.join(pdf_folder, filename)
                 doc = fitz.open(filepath)
                 
-                # Extract text with page information
                 pages = []
                 for page_num in range(len(doc)):
                     page = doc.load_page(page_num)
@@ -53,7 +52,7 @@ class DocumentProcessor:
         return documents
     
     def extract_sections(self, document: Dict[str, Any]) -> List[Dict[str, Any]]:
-        """Extract sections from a document with improved detection"""
+        """Extract sections with enhanced HR focus"""
         sections = []
         
         for page in document['pages']:
@@ -68,12 +67,11 @@ class DocumentProcessor:
                 if not line:
                     continue
                 
-                # Check if line is a section header
-                if self.is_section_header(line, lines, i):
+                if self.is_hr_relevant_section_header(line, lines, i):
                     # Save previous section
                     if current_section and section_text:
                         content = self.clean_text('\n'.join(section_text))
-                        if len(content) > 50:  # Minimum content length
+                        if len(content) > 100:  # Higher minimum for quality
                             sections.append({
                                 'document': document['filename'],
                                 'page_number': page['page_number'],
@@ -82,7 +80,6 @@ class DocumentProcessor:
                                 'word_count': len(content.split())
                             })
                     
-                    # Start new section
                     current_section = line
                     section_text = []
                 else:
@@ -92,7 +89,7 @@ class DocumentProcessor:
             # Save last section on page
             if current_section and section_text:
                 content = self.clean_text('\n'.join(section_text))
-                if len(content) > 50:
+                if len(content) > 100:
                     sections.append({
                         'document': document['filename'],
                         'page_number': page['page_number'],
@@ -103,130 +100,168 @@ class DocumentProcessor:
         
         return sections
     
-    def is_section_header(self, line: str, all_lines: List[str], line_index: int) -> bool:
-        """Improved section header detection"""
-        # Basic length and format checks
-        if len(line) < 5 or len(line) > 100:
+    def is_hr_relevant_section_header(self, line: str, all_lines: List[str], line_index: int) -> bool:
+        """Enhanced section header detection for HR relevance"""
+        
+        # Skip very short or fragmented headers
+        if len(line) < 10 or (line.endswith('.') and not line.endswith('(Acrobat Pro)')):
             return False
         
-        # Skip if it's just a fragment or ends with incomplete text
-        if line.endswith(':') and len(line) < 15:
+        # Skip if it's clearly not a header (contains lots of numbers/symbols)
+        if len(re.findall(r'[0-9]', line)) > len(line) * 0.3:
             return False
         
-        # Check against improved patterns
+        # Check enhanced patterns
         for pattern in self.section_patterns:
-            if re.match(pattern, line):
+            if re.match(pattern, line, re.IGNORECASE):
                 return True
         
-        # Additional heuristics
-        
-        # Check if it's a proper title (title case or all caps)
-        words = line.split()
-        if len(words) >= 2:
-            # Title case check
-            if all(word[0].isupper() for word in words if word.isalpha()):
-                return True
-            
-            # All caps check (but not too long)
-            if line.isupper() and len(line) < 60:
-                return True
-        
-        # Check for important travel-related keywords
+        # HR-specific header detection
         line_lower = line.lower()
-        if any(keyword in line_lower for keyword in self.important_keywords):
-            # Additional validation - should look like a title
-            if (line.istitle() or line.isupper()) and not line.endswith('.'):
+        
+        # High-priority HR keywords in headers
+        hr_priority_terms = [
+            'fillable', 'interactive', 'form', 'sign', 'create', 'convert',
+            'fill', 'prepare', 'manage', 'distribute', 'collect', 'workflow'
+        ]
+        
+        if any(term in line_lower for term in hr_priority_terms):
+            # Additional validation for complete headers
+            if (len(line) > 15 and 
+                (line.istitle() or line.isupper() or 
+                 any(char.isupper() for char in line)) and
+                not line.endswith('.')):
                 return True
         
-        # Check formatting context (if next line is content-like)
-        if line_index + 1 < len(all_lines):
-            next_line = all_lines[line_index + 1].strip()
-            if next_line and len(next_line) > 20 and not next_line.isupper():
-                # Current line might be a header if it's short and title-like
-                if len(line) < 50 and (line.istitle() or line.isupper()):
-                    return True
+        # Check context - next few lines should be content
+        if line_index + 2 < len(all_lines):
+            next_lines = ' '.join(all_lines[line_index+1:line_index+3]).strip()
+            if (len(next_lines) > 50 and 
+                not next_lines.isupper() and
+                line.istitle()):
+                return True
         
         return False
     
     def clean_text(self, raw_text: str) -> str:
-        """Clean text by removing formatting artifacts"""
+        """Enhanced text cleaning for better readability"""
         if not raw_text:
             return ""
         
         # Remove bullet points and special characters
         text = raw_text.replace('•', '')
-        text = text.replace('\u2022', '')  # Another bullet point format
+        text = text.replace('\u2022', '')
+        text = text.replace('◦', '')
         
-        # Remove Unicode artifacts
+        # Fix common Unicode issues
         text = re.sub(r'\\u[0-9a-fA-F]{4}', '', text)
-        text = re.sub(r'\ufb00', 'ff', text)  # Fix ligature
-        text = re.sub(r'\u00e8', 'è', text)   # Fix accented characters
-        text = re.sub(r'\u00e9', 'é', text)
-        text = re.sub(r'\u00f4', 'ô', text)
+        text = re.sub(r'\ufb00', 'ff', text)
+        text = re.sub(r'\ufb01', 'fi', text)
+        text = re.sub(r'\ufb02', 'fl', text)
+        
+        # Fix accented characters
+        unicode_fixes = {
+            '\u00e8': 'è', '\u00e9': 'é', '\u00ea': 'ê', '\u00eb': 'ë',
+            '\u00f4': 'ô', '\u00f6': 'ö', '\u00fc': 'ü', '\u00e7': 'ç'
+        }
+        for old, new in unicode_fixes.items():
+            text = text.replace(old, new)
         
         # Normalize whitespace
         text = re.sub(r'\s+', ' ', text)
-        text = re.sub(r'\n\s*\n', '\n', text)
+        text = re.sub(r'\n\s*\n', '. ', text)
         
         # Clean up formatting
         text = text.replace('\n', ' ')
         text = text.strip()
         
+        # Remove excessive punctuation
+        text = re.sub(r'\.{2,}', '.', text)
+        text = re.sub(r'\s+\.', '.', text)
+        
         return text
     
     def extract_subsections(self, top_sections: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-        """Extract relevant subsections with better text processing"""
+        """Extract HR-focused subsections"""
         subsections = []
         
         for section in top_sections:
             content = section['content']
             
-            # Split content into meaningful paragraphs
-            paragraphs = re.split(r'\.\s+', content)
+            # Split into sentences for better subsection creation
+            sentences = re.split(r'(?<=[.!?])\s+', content)
             
-            # Process paragraphs into coherent subsections
+            # Group sentences into meaningful subsections
             current_subsection = ""
             sentence_count = 0
             
-            for para in paragraphs:
-                para = para.strip()
-                if not para:
+            for sentence in sentences:
+                sentence = sentence.strip()
+                if not sentence:
                     continue
                 
                 # Add sentence to current subsection
                 if current_subsection:
-                    current_subsection += ". " + para
+                    current_subsection += " " + sentence
                 else:
-                    current_subsection = para
+                    current_subsection = sentence
                 
                 sentence_count += 1
                 
-                # Create subsection when we have 2-4 sentences or reach good length
-                if (sentence_count >= 2 and len(current_subsection) > 100) or len(current_subsection) > 300:
-                    # Ensure it ends properly
-                    if not current_subsection.endswith('.'):
+                # Create subsection when we have good content
+                if ((sentence_count >= 2 and len(current_subsection) > 150) or 
+                    len(current_subsection) > 400):
+                    
+                    # Ensure proper ending
+                    if not current_subsection.endswith(('.', '!', '?')):
                         current_subsection += '.'
                     
+                    # Only include if it's HR-relevant
+                    if self.is_hr_relevant_content(current_subsection):
+                        subsections.append({
+                            'document': section['document'],
+                            'page_number': section['page_number'],
+                            'refined_text': current_subsection.strip(),
+                            'source_section': section['section_title']
+                        })
+                    
+                    current_subsection = ""
+                    sentence_count = 0
+            
+            # Add remaining content if substantial and relevant
+            if current_subsection and len(current_subsection) > 100:
+                if not current_subsection.endswith(('.', '!', '?')):
+                    current_subsection += '.'
+                
+                if self.is_hr_relevant_content(current_subsection):
                     subsections.append({
                         'document': section['document'],
                         'page_number': section['page_number'],
                         'refined_text': current_subsection.strip(),
                         'source_section': section['section_title']
                     })
-                    
-                    current_subsection = ""
-                    sentence_count = 0
-            
-            # Add remaining content if substantial
-            if current_subsection and len(current_subsection) > 50:
-                if not current_subsection.endswith('.'):
-                    current_subsection += '.'
-                
-                subsections.append({
-                    'document': section['document'],
-                    'page_number': section['page_number'],
-                    'refined_text': current_subsection.strip(),
-                    'source_section': section['section_title']
-                })
         
         return subsections
+    
+    def is_hr_relevant_content(self, content: str) -> bool:
+        """Check if content is relevant for HR professional"""
+        content_lower = content.lower()
+        
+        # Must contain at least one HR-relevant term
+        hr_relevant_terms = [
+            'form', 'field', 'fill', 'sign', 'create', 'interactive',
+            'fillable', 'document', 'pdf', 'acrobat', 'employee',
+            'workflow', 'process', 'manage', 'distribute'
+        ]
+        
+        relevant_count = sum(1 for term in hr_relevant_terms if term in content_lower)
+        
+        # Should not contain too many irrelevant terms
+        irrelevant_terms = [
+            'generative ai', 'artificial intelligence', 'machine learning',
+            'visio', 'postscript', 'color management', 'prepress'
+        ]
+        
+        irrelevant_count = sum(1 for term in irrelevant_terms if term in content_lower)
+        
+        return relevant_count >= 2 and irrelevant_count == 0

@@ -1,101 +1,80 @@
-from sentence_transformers import SentenceTransformer
-import numpy as np
 from typing import Dict, Any, List
+import re
 
 class PersonaAnalyzer:
     def __init__(self):
-        # Load lightweight sentence transformer model
-        self.model = SentenceTransformer('all-MiniLM-L6-v2')
-        
-        # Enhanced persona expertise mappings
+        # Enhanced persona expertise mappings for HR professional
         self.persona_keywords = {
-            'travel_planner': [
-                'itinerary', 'accommodation', 'transportation', 'attractions', 
-                'budget', 'schedule', 'booking', 'destinations', 'activities',
-                'group', 'friends', 'college', 'young', 'adventure', 'nightlife',
-                'planning', 'logistics', 'coordination', 'organization'
-            ],
             'hr_professional': [
-                'forms', 'compliance', 'onboarding', 'procedures', 'workflow', 
-                'documentation', 'policies', 'training', 'employee', 'staff'
+                # Core HR form keywords
+                'fillable forms', 'form creation', 'interactive forms', 'form fields',
+                'fill and sign', 'prepare forms', 'form wizard', 'form templates',
+                
+                # Onboarding and compliance
+                'onboarding', 'compliance', 'employee documentation', 'workflow',
+                'approval process', 'digital signatures', 'e-signatures',
+                
+                # Document management
+                'document management', 'form distribution', 'collect responses',
+                'track submissions', 'form validation', 'required fields',
+                
+                # HR processes
+                'employee forms', 'hiring documents', 'policy forms',
+                'training records', 'performance reviews', 'benefits enrollment'
+            ],
+            'travel_planner': [
+                'itinerary', 'accommodation', 'transportation', 'attractions',
+                'budget', 'schedule', 'booking', 'destinations', 'activities'
             ],
             'food_contractor': [
-                'recipes', 'ingredients', 'preparation', 'serving', 'catering', 
+                'recipes', 'ingredients', 'preparation', 'serving', 'catering',
                 'dietary', 'menu', 'buffet', 'vegetarian', 'corporate', 'event'
-            ],
-            'researcher': [
-                'methodology', 'results', 'analysis', 'literature', 'experiments', 
-                'findings', 'data', 'study', 'research', 'academic'
-            ],
-            'student': [
-                'concepts', 'examples', 'theory', 'practice', 'exercises', 
-                'fundamentals', 'learning', 'study', 'education', 'tutorial'
-            ],
-            'analyst': [
-                'trends', 'data', 'metrics', 'performance', 'comparison', 
-                'insights', 'analysis', 'evaluation', 'assessment', 'review'
             ]
         }
-        
-        # Group travel specific keywords
-        self.group_travel_keywords = [
-            'group', 'friends', 'college', 'young', 'budget', 'affordable',
-            'backpacking', 'hostels', 'shared', 'activities', 'nightlife',
-            'adventure', 'fun', 'social', 'party', 'entertainment', 'explore'
-        ]
     
     def analyze_persona(self, persona: Dict[str, Any], job: Dict[str, Any]) -> Dict[str, Any]:
-        """Enhanced persona analysis for travel planning"""
+        """Analyze persona without ML dependencies"""
         
-        # Extract persona role and job task
         persona_role = persona.get('role', '').lower()
         job_task = job.get('task', '')
         
-        # Create enhanced query combining persona and specific requirements
+        # Create enhanced query
         enhanced_query = self.create_enhanced_query(persona_role, job_task)
-        
-        # Generate embedding
-        query_embedding = self.model.encode([enhanced_query])[0]
         
         # Extract comprehensive keywords
         keywords = self.extract_comprehensive_keywords(persona_role, job_task)
         
-        # Create context object
+        # Create context object (without embeddings)
         context = {
             'persona_role': persona_role,
             'job_task': job_task,
-            'query_embedding': query_embedding,
+            'query_embedding': None,  # No ML model needed
             'keywords': keywords,
             'combined_query': enhanced_query,
-            'is_group_travel': self.is_group_travel_context(job_task),
-            'group_size': self.extract_group_size(job_task),
-            'trip_duration': self.extract_trip_duration(job_task)
+            'is_hr_context': self.is_hr_context(persona_role, job_task),
+            'specific_needs': self.extract_specific_needs(job_task)
         }
         
         return context
     
     def create_enhanced_query(self, persona_role: str, job_task: str) -> str:
-        """Create enhanced query string for better matching"""
-        
-        # Base query
+        """Create enhanced query for HR professional"""
         base_query = f"{persona_role}: {job_task}"
         
-        # Add context based on detected patterns
         enhancements = []
         
-        if 'group' in job_task.lower() or 'friends' in job_task.lower():
-            enhancements.append("group travel planning")
+        if 'hr' in persona_role.lower() or 'human resources' in persona_role.lower():
+            enhancements.append("form creation fillable interactive")
         
-        if 'college' in job_task.lower():
-            enhancements.append("young travelers budget activities")
+        if 'fillable forms' in job_task.lower():
+            enhancements.append("prepare forms fill sign interactive fields")
         
-        if '4 days' in job_task or 'four days' in job_task:
-            enhancements.append("short trip itinerary scheduling")
+        if 'onboarding' in job_task.lower():
+            enhancements.append("employee documents workflow signatures")
         
-        if 'south of france' in job_task.lower():
-            enhancements.append("French Riviera Mediterranean coast attractions")
+        if 'compliance' in job_task.lower():
+            enhancements.append("required fields validation tracking")
         
-        # Combine all elements
         if enhancements:
             enhanced_query = f"{base_query} {' '.join(enhancements)}"
         else:
@@ -104,76 +83,55 @@ class PersonaAnalyzer:
         return enhanced_query
     
     def extract_comprehensive_keywords(self, persona_role: str, job_task: str) -> List[str]:
-        """Extract comprehensive keyword list"""
+        """Extract comprehensive keyword list for HR professional"""
         keywords = []
         
         # Add persona-specific keywords
         for persona_type, type_keywords in self.persona_keywords.items():
-            if persona_type in persona_role or any(word in persona_role for word in persona_type.split('_')):
+            if persona_type in persona_role.replace(' ', '_').lower():
                 keywords.extend(type_keywords)
         
-        # Add group travel keywords if applicable
-        if self.is_group_travel_context(job_task):
-            keywords.extend(self.group_travel_keywords)
+        # Add HR-specific keywords if HR persona
+        if 'hr' in persona_role.lower() or 'human resources' in persona_role.lower():
+            hr_specific = [
+                'forms', 'fillable', 'interactive', 'fields', 'signatures',
+                'workflow', 'compliance', 'onboarding', 'employee', 'create',
+                'manage', 'distribute', 'collect', 'track', 'validate'
+            ]
+            keywords.extend(hr_specific)
         
         # Extract keywords from job task
         job_words = job_task.lower().split()
         important_job_words = [
             word for word in job_words 
-            if len(word) > 3 and word not in ['plan', 'trip', 'days', 'group', 'friends']
+            if len(word) > 3 and word not in ['create', 'manage', 'forms']
         ]
         keywords.extend(important_job_words)
         
-        # Add travel planning specific keywords
-        travel_keywords = [
-            'accommodation', 'activities', 'attractions', 'restaurants', 
-            'transportation', 'itinerary', 'schedule', 'budget', 'nightlife',
-            'entertainment', 'sightseeing', 'cultural', 'cuisine', 'tips'
-        ]
-        keywords.extend(travel_keywords)
-        
         return list(set(keywords))  # Remove duplicates
     
-    def is_group_travel_context(self, job_task: str) -> bool:
-        """Determine if this is group travel planning"""
-        group_indicators = ['group', 'friends', 'college', 'people', 'travelers']
-        return any(indicator in job_task.lower() for indicator in group_indicators)
-    
-    def extract_group_size(self, job_task: str) -> int:
-        """Extract group size from task description"""
-        import re
-        
-        # Look for numbers in the task
-        numbers = re.findall(r'\b(\d+)\b', job_task)
-        
-        for num_str in numbers:
-            num = int(num_str)
-            if 2 <= num <= 50:  # Reasonable group size range
-                return num
-        
-        return 1  # Default to individual travel
-    
-    def extract_trip_duration(self, job_task: str) -> int:
-        """Extract trip duration in days"""
-        import re
-        
-        # Look for patterns like "4 days", "four days", etc.
-        day_patterns = [
-            r'(\d+)\s*days?',
-            r'(one|two|three|four|five|six|seven|eight|nine|ten)\s*days?'
+    def is_hr_context(self, persona_role: str, job_task: str) -> bool:
+        """Determine if this is HR context"""
+        hr_indicators = [
+            'hr', 'human resources', 'onboarding', 'compliance', 
+            'employee', 'forms', 'fillable'
         ]
+        combined_text = f"{persona_role} {job_task}".lower()
+        return any(indicator in combined_text for indicator in hr_indicators)
+    
+    def extract_specific_needs(self, job_task: str) -> List[str]:
+        """Extract specific needs from job task"""
+        needs = []
         
-        number_words = {
-            'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5,
-            'six': 6, 'seven': 7, 'eight': 8, 'nine': 9, 'ten': 10
-        }
+        if 'create' in job_task.lower():
+            needs.append('form_creation')
+        if 'manage' in job_task.lower():
+            needs.append('form_management')
+        if 'fillable' in job_task.lower():
+            needs.append('interactive_forms')
+        if 'onboarding' in job_task.lower():
+            needs.append('onboarding_workflow')
+        if 'compliance' in job_task.lower():
+            needs.append('compliance_tracking')
         
-        for pattern in day_patterns:
-            matches = re.findall(pattern, job_task.lower())
-            for match in matches:
-                if match.isdigit():
-                    return int(match)
-                elif match in number_words:
-                    return number_words[match]
-        
-        return 7  # Default to 1 week
+        return needs

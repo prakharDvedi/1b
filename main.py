@@ -90,8 +90,14 @@ class DocumentIntelligenceSystem:
                 input_config, ranked_sections, subsections, start_time
             )
             
-            # Save results
-            output_file = os.path.join(collection_path, "challenge1b_output.json")
+            # Save results to Outputs directory for Docker volume mount
+            outputs_dir = "/app/Outputs"
+            if not os.path.exists(outputs_dir):
+                outputs_dir = "Outputs"  # Fallback for local execution
+            
+            collection_name = os.path.basename(collection_path).replace(" ", "_").lower()
+            output_file = os.path.join(outputs_dir, f"{collection_name}_output.json")
+            
             with open(output_file, 'w') as f:
                 json.dump(output_data, f, indent=2)
             
