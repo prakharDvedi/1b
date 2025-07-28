@@ -119,8 +119,8 @@ python main.py "Collection 1"
 ### Docker
 
 ```bash
-docker build -t docai .
-docker run --rm -v $(pwd):/app docai python main.py "Collection 2"
+docker build -t 1b-minimal .
+docker run --rm -v "${PWD}:/app" 1b-minimal python main.py "Collection 2"
 ```
 
 ---
