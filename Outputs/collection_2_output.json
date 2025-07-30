@@ -17,162 +17,251 @@
       "Test Your Acrobat Exporting Skills.pdf",
       "The Ultimate PDF Sharing Checklist.pdf"
     ],
+    "document_count": 15,
     "persona": "HR professional",
     "job_to_be_done": "Create and manage fillable forms for onboarding and compliance.",
-    "processing_timestamp": "2025-07-28T17:56:30.031360Z"
+    "processing_timestamp": "2025-07-30T18:36:05.071735Z",
+    "processing_time_seconds": 0.34,
+    "system_version": "2.0.0-generic",
+    "challenge_info": {
+      "challenge_id": "round_1b_003",
+      "test_case_name": "create_manageable_forms",
+      "description": "Creating manageable forms"
+    }
+  },
+  "statistics": {
+    "total_sections_found": 15,
+    "sections_included": 15,
+    "subsections_included": 10,
+    "total_words_analyzed": 640,
+    "average_relevance_score": 0.376,
+    "max_relevance_score": 0.477,
+    "min_relevance_score": 0.279,
+    "sections_per_document": {
+      "Learn Acrobat - Request e-signatures_1.pdf": 1,
+      "Learn Acrobat - Fill and Sign.pdf": 1,
+      "Learn Acrobat - Create and Convert_1.pdf": 1,
+      "The Ultimate PDF Sharing Checklist.pdf": 1,
+      "Learn Acrobat - Create and Convert_2.pdf": 1,
+      "Learn Acrobat - Edit_2.pdf": 1,
+      "Learn Acrobat - Request e-signatures_2.pdf": 1,
+      "Learn Acrobat - Generative AI_2.pdf": 1,
+      "Learn Acrobat - Share_2.pdf": 1,
+      "Learn Acrobat - Export_1.pdf": 1,
+      "Learn Acrobat - Edit_1.pdf": 1,
+      "Learn Acrobat - Share_1.pdf": 1,
+      "Learn Acrobat - Generative AI_1.pdf": 1,
+      "Test Your Acrobat Exporting Skills.pdf": 1,
+      "Learn Acrobat - Export_2.pdf": 1
+    }
   },
   "extracted_sections": [
     {
       "document": "Learn Acrobat - Request e-signatures_1.pdf",
+      "section_title": "Shared web forms can be viewed on the Manage page, but do not allow editing",
+      "importance_rank": 1,
       "page_number": 19,
-      "section_title": "Download Form Field Data - Downloads a CSV file of the field-level content for all",
-      "importance_rank": 1
-    },
-    {
-      "document": "Learn Acrobat - Create and Convert_1.pdf",
-      "page_number": 15,
-      "section_title": "Create a PDF and share the link for viewing or commenting",
-      "importance_rank": 2
-    },
-    {
-      "document": "Learn Acrobat - Create and Convert_2.pdf",
-      "page_number": 12,
-      "section_title": "Create a PDF using the Print command (Mac OS X)",
-      "importance_rank": 3
-    },
-    {
-      "document": "Learn Acrobat - Share_1.pdf",
-      "page_number": 11,
-      "section_title": "Send personalized invitations for commenting",
-      "importance_rank": 4
-    },
-    {
-      "document": "Learn Acrobat - Export_1.pdf",
-      "page_number": 23,
-      "section_title": "Generate Tags For Untagged Files",
-      "importance_rank": 5
-    },
-    {
-      "document": "Learn Acrobat - Generative AI_1.pdf",
-      "page_number": 11,
-      "section_title": "Select multiple files",
-      "importance_rank": 6
-    },
-    {
-      "document": "Learn Acrobat - Edit_2.pdf",
-      "page_number": 7,
-      "section_title": "If the document includes bookmarks, it creates one document for every top-level",
-      "importance_rank": 7
-    },
-    {
-      "document": "Learn Acrobat - Edit_1.pdf",
-      "page_number": 9,
-      "section_title": "To create a numbered or bulleted list:",
-      "importance_rank": 8
-    },
-    {
-      "document": "Learn Acrobat - Share_2.pdf",
-      "page_number": 2,
-      "section_title": "Show annotations and drawing markup tools",
-      "importance_rank": 9
-    },
-    {
-      "document": "Learn Acrobat - Generative AI_2.pdf",
-      "page_number": 18,
-      "section_title": "License deployment",
-      "importance_rank": 10
-    },
-    {
-      "document": "The Ultimate PDF Sharing Checklist.pdf",
-      "page_number": 3,
-      "section_title": "\u2022  Create and Share the Link",
-      "importance_rank": 11
-    },
-    {
-      "document": "Learn Acrobat - Request e-signatures_2.pdf",
-      "page_number": 1,
-      "section_title": "Adobe LiveCycleRights Management (ALCRM) servers let you define centralized policies to",
-      "importance_rank": 12
+      "word_count": 53,
+      "relevance_score": 0.477,
+      "extraction_method": "fallback_chunking"
     },
     {
       "document": "Learn Acrobat - Fill and Sign.pdf",
-      "page_number": 8,
-      "section_title": "Fill in interactive forms",
-      "importance_rank": 13
+      "section_title": "Change flat forms to fillable (Acrobat Pro) You..",
+      "importance_rank": 2,
+      "page_number": 12,
+      "word_count": 48,
+      "relevance_score": 0.452,
+      "extraction_method": "fallback_chunking"
     },
     {
-      "document": "Learn Acrobat - Export_2.pdf",
+      "document": "Learn Acrobat - Create and Convert_1.pdf",
+      "section_title": "PDF/A Compliance Creates the PDF so that it..",
+      "importance_rank": 3,
+      "page_number": 21,
+      "word_count": 41,
+      "relevance_score": 0.426,
+      "extraction_method": "fallback_chunking"
+    },
+    {
+      "document": "The Ultimate PDF Sharing Checklist.pdf",
+      "section_title": "Sharing Checklist for Real Estate Professionals In the..",
+      "importance_rank": 4,
       "page_number": 2,
-      "section_title": "Export objects to separate PDF",
-      "importance_rank": 14
+      "word_count": 35,
+      "relevance_score": 0.409,
+      "extraction_method": "fallback_chunking"
+    },
+    {
+      "document": "Learn Acrobat - Create and Convert_2.pdf",
+      "section_title": "A tagged structure is required for reflowing content..",
+      "importance_rank": 5,
+      "page_number": 12,
+      "word_count": 44,
+      "relevance_score": 0.384,
+      "extraction_method": "fallback_chunking"
+    },
+    {
+      "document": "Learn Acrobat - Edit_2.pdf",
+      "section_title": "Enhance scanned file or camera images for clear..",
+      "importance_rank": 6,
+      "page_number": 16,
+      "word_count": 36,
+      "relevance_score": 0.382,
+      "extraction_method": "fallback_chunking"
+    },
+    {
+      "document": "Learn Acrobat - Request e-signatures_2.pdf",
+      "section_title": "For a list and explanation of each warning, see the DigSig Admin Guide",
+      "importance_rank": 7,
+      "page_number": 10,
+      "word_count": 36,
+      "relevance_score": 0.372,
+      "extraction_method": "fallback_chunking"
+    },
+    {
+      "document": "Learn Acrobat - Generative AI_2.pdf",
+      "section_title": "After the admin approves your request, you'll receive..",
+      "importance_rank": 8,
+      "page_number": 12,
+      "word_count": 55,
+      "relevance_score": 0.371,
+      "extraction_method": "fallback_chunking"
+    },
+    {
+      "document": "Learn Acrobat - Share_2.pdf",
+      "section_title": "Text boxes allow for horizontal text only",
+      "importance_rank": 9,
+      "page_number": 12,
+      "word_count": 38,
+      "relevance_score": 0.367,
+      "extraction_method": "fallback_chunking"
+    },
+    {
+      "document": "Learn Acrobat - Export_1.pdf",
+      "section_title": "From the drop down menu next to Microsoft Excel, select the format you want your Excel to be",
+      "importance_rank": 10,
+      "page_number": 18,
+      "word_count": 51,
+      "relevance_score": 0.367,
+      "extraction_method": "fallback_chunking"
+    },
+    {
+      "document": "Learn Acrobat - Edit_1.pdf",
+      "section_title": "The Edit panel includes options to modify the..",
+      "importance_rank": 11,
+      "page_number": 2,
+      "word_count": 39,
+      "relevance_score": 0.362,
+      "extraction_method": "fallback_chunking"
+    },
+    {
+      "document": "Learn Acrobat - Share_1.pdf",
+      "section_title": "Initiate SharePoint-based shared review using Acrobat Before you..",
+      "importance_rank": 12,
+      "page_number": 14,
+      "word_count": 54,
+      "relevance_score": 0.36,
+      "extraction_method": "fallback_chunking"
+    },
+    {
+      "document": "Learn Acrobat - Generative AI_1.pdf",
+      "section_title": "When you select multiple files, Acrobat creates a..",
+      "importance_rank": 13,
+      "page_number": 12,
+      "word_count": 32,
+      "relevance_score": 0.322,
+      "extraction_method": "fallback_chunking"
     },
     {
       "document": "Test Your Acrobat Exporting Skills.pdf",
+      "section_title": "Scenario: You're preparing a presentation for a big meeting",
+      "importance_rank": 14,
       "page_number": 1,
-      "section_title": "1. Yes or No: Can you save a PDF in text format to use with a screen reader?",
-      "importance_rank": 15
+      "word_count": 42,
+      "relevance_score": 0.31,
+      "extraction_method": "fallback_chunking"
+    },
+    {
+      "document": "Learn Acrobat - Export_2.pdf",
+      "section_title": "If a document is open in another application,..",
+      "importance_rank": 15,
+      "page_number": 3,
+      "word_count": 36,
+      "relevance_score": 0.279,
+      "extraction_method": "fallback_chunking"
     }
   ],
   "subsection_analysis": [
     {
       "document": "Learn Acrobat - Request e-signatures_1.pdf",
-      "refined_text": "child agreements spawned from this parent Bulk Send that have been completed. Download Individual Files - Provides the option to download the individual PDF files if multiple files were used to create the web form.",
-      "page_number": 19
+      "refined_text": "Shared web forms can be viewed on the Manage page, but do not allow editing. \u2022 A PDF copy of the Bulk Send parent document (without added fields) is emailed to the sharee. \u2022 View Activity Report \u2022 View the current status of all child agreements created by the Bulk Send parent template.",
+      "page_number": 19,
+      "source_section": "Shared web forms can be viewed on the Manage page, but do not allow editing",
+      "text_length": 286
     },
     {
-      "document": "Learn Acrobat - Request e-signatures_1.pdf",
-      "refined_text": "Shared web forms can be viewed on the Manage page, but do not allow editing. A PDF copy of the Bulk Send parent document (without added fields) is emailed to the sharee.",
-      "page_number": 19
+      "document": "Learn Acrobat - Fill and Sign.pdf",
+      "refined_text": "Change flat forms to fillable (Acrobat Pro) You can change a flat form to a fillable form by either using the Prepare Form tool or enabling the Fill & Sign tools. Acrobat and Acrobat Reader users can use the Fill & Sign tool to fill in flat forms.",
+      "page_number": 12,
+      "source_section": "Change flat forms to fillable (Acrobat Pro) You..",
+      "text_length": 247
     },
     {
       "document": "Learn Acrobat - Create and Convert_1.pdf",
-      "refined_text": "Applicable to Microsoft Word, Excel, and PowerPoint 1. Open the file in the application used to create it. 2. Do any of the following: From the Home tab, choose Create PDF and share link.",
-      "page_number": 15
+      "refined_text": "PDF/A Compliance Creates the PDF so that it conforms to the selected ISO standard for long-term preservation of electronic documents. Security tab of the Adobe PDFMaker preferences The settings available for PDFMaker depend on the application in which you\u2019re using PDFMaker.",
+      "page_number": 21,
+      "source_section": "PDF/A Compliance Creates the PDF so that it..",
+      "text_length": 274
+    },
+    {
+      "document": "The Ultimate PDF Sharing Checklist.pdf",
+      "refined_text": "Sharing Checklist for Real Estate Professionals In the real estate industry, sharing documents efficiently is crucial for closing deals and keeping clients informed. Here's a tailored checklist to help you manage your PDF sharing needs.",
+      "page_number": 2,
+      "source_section": "Sharing Checklist for Real Estate Professionals In the..",
+      "text_length": 236
     },
     {
       "document": "Learn Acrobat - Create and Convert_2.pdf",
-      "refined_text": "The method for creating PDFs using the Print command changed in Mac OS v10.6 Snow Leopard with Acrobat 9.1 and later. The following procedure describes the method in both Snow Leopard and earlier versions of Mac OS X.",
-      "page_number": 12
+      "refined_text": "A tagged structure is required for reflowing content to a handheld device and is preferable for producing reliable results with a screen reader. Create a PDF using the Print command (Windows) 1. Open the file in its authoring application, and choose File > Print.",
+      "page_number": 12,
+      "source_section": "A tagged structure is required for reflowing content..",
+      "text_length": 263
     },
     {
-      "document": "Learn Acrobat - Share_1.pdf",
-      "refined_text": "1. Open the PDF in Acrobat. 2. Select Share. Note: The computer must be connected to the Internet to start a shared review in Acrobat. You can also start a shared review directly from other applications that use PDFMaker, such as Microsoft Word.",
-      "page_number": 11
+      "document": "Learn Acrobat - Edit_2.pdf",
+      "refined_text": "Enhance scanned file or camera images for clear PDFs You can capture document photos with your smartphone and use the Enhance camera image feature to create polished, clear, and compact PDFs without needing a standard scanner.",
+      "page_number": 16,
+      "source_section": "Enhance scanned file or camera images for clear..",
+      "text_length": 226
     },
     {
-      "document": "Learn Acrobat - Export_1.pdf",
-      "refined_text": "Generates tags for files not already tagged, such as PDFs created using Acrobat 4.0 or earlier. If this option isn't selected, untagged files are not converted.",
-      "page_number": 23
-    },
-    {
-      "document": "Learn Acrobat - Export_1.pdf",
-      "refined_text": "Note: Tags are applied only as part of the conversion process and are discarded after the conversion. This is not a method for creating tagged PDFs from legacy files.",
-      "page_number": 23
-    },
-    {
-      "document": "Learn Acrobat - Generative AI_1.pdf",
-      "refined_text": "Acrobat creates a collection of the selected files and opens the document. 2. Select Get started. 3. Select from the sample questions that are displayed based on the content of your PDF file.",
-      "page_number": 11
-    },
-    {
-      "document": "Learn Acrobat - Generative AI_1.pdf",
-      "refined_text": "Alternatively, type your question in the message field. 4. The answer to your question is displayed. The relevant sources are marked with numbers. You can do the following: Select a number to navigate directly to the corresponding section of the document.",
-      "page_number": 11
-    },
-    {
-      "document": "Learn Acrobat - Edit_1.pdf",
-      "refined_text": "1. Place the cursor in the document at the location where you want to add a list. 2. Choose the appropriate list type under Format Text.",
-      "page_number": 9
-    },
-    {
-      "document": "Learn Acrobat - Share_2.pdf",
-      "refined_text": "Annotations and markup tools don\u2019t appear by default, except when you open a PDF in a managed review workflow. 1. Choose the Comments icon on the right pane to see the added comments.",
-      "page_number": 2
+      "document": "Learn Acrobat - Request e-signatures_2.pdf",
+      "refined_text": "For a list and explanation of each warning, see the DigSig Admin Guide. XML data signatures Acrobat and Acrobat Reader support XML data signatures that are used to sign data in XML Forms Architectures (XFA) forms.",
+      "page_number": 10,
+      "source_section": "For a list and explanation of each warning, see the DigSig Admin Guide",
+      "text_length": 213
     },
     {
       "document": "Learn Acrobat - Generative AI_2.pdf",
-      "refined_text": "You can manage the deployment of Acrobat AI Assistant through the Adobe Admin Console. As an admin, you must add users to the Admin Console using one of the methods described.",
-      "page_number": 18
+      "refined_text": "After the admin approves your request, you'll receive an email confirming that the AI Assistant for Acrobat is available. Note: To check the status of your request, select Refresh on the AI Assistant. For more information on requesting access to Adobe products and services, see Request access to an Adobe product and Manage product requests.",
+      "page_number": 12,
+      "source_section": "After the admin approves your request, you'll receive..",
+      "text_length": 342
+    },
+    {
+      "document": "Learn Acrobat - Share_2.pdf",
+      "refined_text": "Text boxes allow for horizontal text only. You can use the Text callout tool to create a callout text box. Callout text boxes are handy when you want to single out\u2014but not obscure\u2014a particular area of a document.",
+      "page_number": 12,
+      "source_section": "Text boxes allow for horizontal text only",
+      "text_length": 212
+    },
+    {
+      "document": "Learn Acrobat - Export_1.pdf",
+      "refined_text": "From the drop down menu next to Microsoft Excel, select the format you want your Excel to be. You get XLSX and XML options. Select the settings icon to change the export preferences. Excel Workbook Settings Specifies whether to create a Worksheet for each table or page, or the entire document.",
+      "page_number": 18,
+      "source_section": "From the drop down menu next to Microsoft Excel, select the format you want your Excel to be",
+      "text_length": 294
     }
   ]
 }

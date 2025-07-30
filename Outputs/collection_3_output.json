@@ -11,65 +11,245 @@
       "Dinner Ideas - Sides_4.pdf",
       "Lunch Ideas.pdf"
     ],
+    "document_count": 9,
     "persona": "Food Contractor",
     "job_to_be_done": "Prepare a vegetarian buffet-style dinner menu for a corporate gathering, including gluten-free items.",
-    "processing_timestamp": "2025-07-28T17:56:34.316272Z"
+    "processing_timestamp": "2025-07-30T18:36:12.124716Z",
+    "processing_time_seconds": 0.4,
+    "system_version": "2.0.0-generic",
+    "challenge_info": {
+      "challenge_id": "round_1b_001",
+      "test_case_name": "menu_planning",
+      "description": "Dinner menu planning"
+    }
+  },
+  "statistics": {
+    "total_sections_found": 15,
+    "sections_included": 15,
+    "subsections_included": 10,
+    "total_words_analyzed": 987,
+    "average_relevance_score": 0.31,
+    "max_relevance_score": 0.346,
+    "min_relevance_score": 0.296,
+    "sections_per_document": {
+      "Dinner Ideas - Sides_1.pdf": 3,
+      "Dinner Ideas - Sides_2.pdf": 2,
+      "Dinner Ideas - Sides_3.pdf": 3,
+      "Dinner Ideas - Sides_4.pdf": 1,
+      "Dinner Ideas - Mains_3.pdf": 2,
+      "Dinner Ideas - Mains_1.pdf": 1,
+      "Dinner Ideas - Mains_2.pdf": 1,
+      "Lunch Ideas.pdf": 1,
+      "Breakfast Ideas.pdf": 1
+    }
   },
   "extracted_sections": [
     {
       "document": "Dinner Ideas - Sides_1.pdf",
+      "section_title": "o Oil for frying \u2022 Instructions: o Mix grated cassava with coconut milk and salt",
+      "importance_rank": 1,
       "page_number": 5,
-      "section_title": "Instructions:",
-      "importance_rank": 1
-    },
-    {
-      "document": "Dinner Ideas - Mains_3.pdf",
-      "page_number": 1,
-      "section_title": "Mandarin pancakes for serving",
-      "importance_rank": 2
-    },
-    {
-      "document": "Dinner Ideas - Mains_2.pdf",
-      "page_number": 1,
-      "section_title": "Salt and pepper to taste",
-      "importance_rank": 3
-    },
-    {
-      "document": "Lunch Ideas.pdf",
-      "page_number": 11,
-      "section_title": "Soy sauce for dipping",
-      "importance_rank": 4
-    },
-    {
-      "document": "Dinner Ideas - Mains_1.pdf",
-      "page_number": 6,
-      "section_title": "Salt and pepper to taste",
-      "importance_rank": 5
-    },
-    {
-      "document": "Breakfast Ideas.pdf",
-      "page_number": 4,
-      "section_title": "2 cups water or milk",
-      "importance_rank": 6
-    },
-    {
-      "document": "Dinner Ideas - Sides_3.pdf",
-      "page_number": 1,
-      "section_title": "Hot and Sour Soup",
-      "importance_rank": 7
-    },
-    {
-      "document": "Dinner Ideas - Sides_4.pdf",
-      "page_number": 15,
-      "section_title": "Sopa de Tortilla",
-      "importance_rank": 8
+      "word_count": 59,
+      "relevance_score": 0.346,
+      "extraction_method": "fallback_chunking"
     },
     {
       "document": "Dinner Ideas - Sides_2.pdf",
+      "section_title": "o Blend chickpeas, diced onion, minced garlic, chopped..",
+      "importance_rank": 2,
+      "page_number": 7,
+      "word_count": 36,
+      "relevance_score": 0.323,
+      "extraction_method": "fallback_chunking"
+    },
+    {
+      "document": "Dinner Ideas - Sides_3.pdf",
+      "section_title": "o Blend peppers, walnuts, breadcrumbs, minced garlic, olive..",
+      "importance_rank": 3,
+      "page_number": 12,
+      "word_count": 64,
+      "relevance_score": 0.318,
+      "extraction_method": "fallback_chunking"
+    },
+    {
+      "document": "Dinner Ideas - Sides_4.pdf",
+      "section_title": "o Add chopped green onions and seafood (if using)",
+      "importance_rank": 4,
+      "page_number": 1,
+      "word_count": 67,
+      "relevance_score": 0.313,
+      "extraction_method": "fallback_chunking"
+    },
+    {
+      "document": "Dinner Ideas - Mains_3.pdf",
+      "section_title": "Mushroom Risotto Ingredients: \u2022 1 cup Arborio rice..",
+      "importance_rank": 5,
+      "page_number": 7,
+      "word_count": 71,
+      "relevance_score": 0.302,
+      "extraction_method": "fallback_chunking"
+    },
+    {
+      "document": "Dinner Ideas - Mains_1.pdf",
+      "section_title": "Beef Stroganoff Ingredients: \u2022 1 pound beef sirloin,..",
+      "importance_rank": 6,
+      "page_number": 2,
+      "word_count": 71,
+      "relevance_score": 0.301,
+      "extraction_method": "fallback_chunking"
+    },
+    {
+      "document": "Dinner Ideas - Mains_2.pdf",
+      "section_title": "\u2022 Cook crab cakes until golden and crispy on both sides",
+      "importance_rank": 7,
+      "page_number": 11,
+      "word_count": 75,
+      "relevance_score": 0.3,
+      "extraction_method": "fallback_chunking"
+    },
+    {
+      "document": "Lunch Ideas.pdf",
+      "section_title": "\u2022 Spread hummus inside each pocket",
+      "importance_rank": 8,
+      "page_number": 3,
+      "word_count": 74,
+      "relevance_score": 0.297,
+      "extraction_method": "fallback_chunking"
+    },
+    {
+      "document": "Breakfast Ideas.pdf",
+      "section_title": "\u2022 Bake for 60 minutes or until a toothpick inserted into the center comes out clean",
+      "importance_rank": 9,
+      "page_number": 6,
+      "word_count": 77,
+      "relevance_score": 0.296,
+      "extraction_method": "fallback_chunking"
+    },
+    {
+      "document": "Dinner Ideas - Sides_1.pdf",
+      "section_title": "o Blend mashed eggplant, tahini, lemon juice, minced garlic, and salt in a food processor",
+      "importance_rank": 10,
+      "page_number": 4,
+      "word_count": 79,
+      "relevance_score": 0.317,
+      "extraction_method": "fallback_chunking"
+    },
+    {
+      "document": "Dinner Ideas - Sides_3.pdf",
+      "section_title": "o Blend mashed eggplant, tahini, lemon juice, minced garlic, and salt in a food processor",
+      "importance_rank": 11,
       "page_number": 13,
-      "section_title": "Gratin Dauphinois",
-      "importance_rank": 9
+      "word_count": 83,
+      "relevance_score": 0.313,
+      "extraction_method": "fallback_chunking"
+    },
+    {
+      "document": "Dinner Ideas - Sides_3.pdf",
+      "section_title": "Hummus \u2022 Ingredients: o 1 can chickpeas o..",
+      "importance_rank": 12,
+      "page_number": 2,
+      "word_count": 50,
+      "relevance_score": 0.312,
+      "extraction_method": "fallback_chunking"
+    },
+    {
+      "document": "Dinner Ideas - Mains_3.pdf",
+      "section_title": "Butter Chicken Ingredients: \u2022 1 pound boneless chicken..",
+      "importance_rank": 13,
+      "page_number": 4,
+      "word_count": 78,
+      "relevance_score": 0.302,
+      "extraction_method": "fallback_chunking"
+    },
+    {
+      "document": "Dinner Ideas - Sides_1.pdf",
+      "section_title": "o Place chicken, shrimp, and mushrooms in small bowls",
+      "importance_rank": 14,
+      "page_number": 15,
+      "word_count": 68,
+      "relevance_score": 0.301,
+      "extraction_method": "fallback_chunking"
+    },
+    {
+      "document": "Dinner Ideas - Sides_2.pdf",
+      "section_title": "o Preheat oven to 375F (190C)",
+      "importance_rank": 15,
+      "page_number": 12,
+      "word_count": 35,
+      "relevance_score": 0.3,
+      "extraction_method": "fallback_chunking"
     }
   ],
-  "subsection_analysis": []
+  "subsection_analysis": [
+    {
+      "document": "Dinner Ideas - Sides_1.pdf",
+      "refined_text": "o Oil for frying \u2022 Instructions: o Mix grated cassava with coconut milk and salt. o Form mixture into flat cakes. o Fry in hot oil until golden.",
+      "page_number": 5,
+      "source_section": "o Oil for frying \u2022 Instructions: o Mix grated cassava with coconut milk and salt",
+      "text_length": 144
+    },
+    {
+      "document": "Dinner Ideas - Sides_2.pdf",
+      "refined_text": "o Blend chickpeas, diced onion, minced garlic, chopped parsley, cumin, coriander, and salt in a food processor. o Add flour and mix until combined. o Form mixture into balls and fry in hot oil until golden.",
+      "page_number": 7,
+      "source_section": "o Blend chickpeas, diced onion, minced garlic, chopped..",
+      "text_length": 206
+    },
+    {
+      "document": "Dinner Ideas - Sides_3.pdf",
+      "refined_text": "o Blend peppers, walnuts, breadcrumbs, minced garlic, olive oil, pomegranate molasses, cumin, and salt in a food processor until smooth. o Serve with pita bread. Mutabal \u2022 Ingredients: o 2 eggplants o 1/4 cup tahini o 1/4 cup lemon juice o 2 cloves garlic o 1/4 cup olive oil o 1 teaspoon salt \u2022 Instructions: o Roast eggplants until soft, then peel and mash.",
+      "page_number": 12,
+      "source_section": "o Blend peppers, walnuts, breadcrumbs, minced garlic, olive..",
+      "text_length": 359
+    },
+    {
+      "document": "Dinner Ideas - Sides_4.pdf",
+      "refined_text": "o Add chopped green onions and seafood (if using). o Heat sesame oil in a pan and pour in batter. o Cook until golden on both sides.",
+      "page_number": 1,
+      "source_section": "o Add chopped green onions and seafood (if using)",
+      "text_length": 132
+    },
+    {
+      "document": "Dinner Ideas - Mains_3.pdf",
+      "refined_text": "Mushroom Risotto Ingredients: \u2022 1 cup Arborio rice \u2022 4 cups chicken or vegetable broth \u2022 1 small onion, diced \u2022 2 cloves garlic, minced \u2022 1 cup mushrooms, sliced \u2022 1/2 cup white wine \u2022 1/2 cup grated Parmesan cheese \u2022 2 tablespoons butter \u2022 2 tablespoons olive oil \u2022 Salt and pepper to taste \u2022",
+      "page_number": 7,
+      "source_section": "Mushroom Risotto Ingredients: \u2022 1 cup Arborio rice..",
+      "text_length": 293
+    },
+    {
+      "document": "Dinner Ideas - Mains_1.pdf",
+      "refined_text": "Beef Stroganoff Ingredients: \u2022 1 pound beef sirloin, thinly sliced \u2022 1 small onion, diced \u2022 2 cloves garlic, minced \u2022 1 cup mushrooms, sliced \u2022 1 cup beef broth \u2022 1 cup sour cream \u2022 2 tablespoons flour \u2022 2 tablespoons butter \u2022 1 teaspoon paprika \u2022 Salt and pepper to taste \u2022 Egg noodles or rice for",
+      "page_number": 2,
+      "source_section": "Beef Stroganoff Ingredients: \u2022 1 pound beef sirloin,..",
+      "text_length": 298
+    },
+    {
+      "document": "Dinner Ideas - Mains_2.pdf",
+      "refined_text": "\u2022 Cook crab cakes until golden and crispy on both sides. \u2022 Serve with lemon wedges. Enchiladas Ingredients: \u2022 1 pound ground beef \u2022 1 small onion, diced \u2022 2 cloves garlic, minced \u2022 1 can (14.5 ounces) enchilada sauce \u2022 1 cup shredded cheese \u2022 8 tortillas \u2022 1 teaspoon cumin \u2022 1 teaspoon chili powder \u2022 2 tablespoons vegetable oil \u2022 Salt and pepper to taste Instructions: \u2022 Preheat oven to 375F (190C).",
+      "page_number": 11,
+      "source_section": "\u2022 Cook crab cakes until golden and crispy on both sides",
+      "text_length": 401
+    },
+    {
+      "document": "Lunch Ideas.pdf",
+      "refined_text": "\u2022 Spread hummus inside each pocket. \u2022 Fill with cucumber, bell pepper, carrots, and spinach. Tuna Salad Ingredients: \u2022 1 can tuna, drained \u2022 1/4 cup mayonnaise \u2022 1 tablespoon Dijon mustard \u2022 1 celery stalk, diced \u2022 1/4 cup red onion, finely chopped \u2022 Salt and pepper to taste \u2022 Lettuce leaves or whole grain bread for serving Instructions: \u2022 In a bowl, combine the tuna, mayonnaise, Dijon mustard, celery, and red onion.",
+      "page_number": 3,
+      "source_section": "\u2022 Spread hummus inside each pocket",
+      "text_length": 420
+    },
+    {
+      "document": "Breakfast Ideas.pdf",
+      "refined_text": "\u2022 Bake for 60 minutes or until a toothpick inserted into the center comes out clean. \u2022 Let cool before slicing. Breakfast Tacos Ingredients: \u2022 2 large eggs \u2022 1/4 cup shredded cheese \u2022 1/4 cup cooked sausage or bacon \u2022 1/4 cup diced bell pepper \u2022 1/4 cup diced onions \u2022 2 small flour tortillas \u2022 Salsa for serving Instructions: \u2022 In a bowl, whisk the eggs and cook them in a skillet over medium heat.",
+      "page_number": 6,
+      "source_section": "\u2022 Bake for 60 minutes or until a toothpick inserted into the center comes out clean",
+      "text_length": 399
+    },
+    {
+      "document": "Dinner Ideas - Sides_1.pdf",
+      "refined_text": "o Blend mashed eggplant, tahini, lemon juice, minced garlic, and salt in a food processor. o Slowly add olive oil while blending until smooth. o Serve with a drizzle of olive oil.",
+      "page_number": 4,
+      "source_section": "o Blend mashed eggplant, tahini, lemon juice, minced garlic, and salt in a food processor",
+      "text_length": 179
+    }
+  ]
 }

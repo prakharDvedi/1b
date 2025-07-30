@@ -9,101 +9,243 @@
       "South of France - Tips and Tricks.pdf",
       "South of France - Traditions and Culture.pdf"
     ],
+    "document_count": 7,
     "persona": "Travel Planner",
     "job_to_be_done": "Plan a trip of 4 days for a group of 10 college friends.",
-    "processing_timestamp": "2025-07-28T17:55:51.527634Z"
+    "processing_timestamp": "2025-07-30T18:35:57.854825Z",
+    "processing_time_seconds": 0.12,
+    "system_version": "2.0.0-generic",
+    "challenge_info": {
+      "challenge_id": "round_1b_002",
+      "test_case_name": "travel_planner",
+      "description": "France Travel"
+    }
+  },
+  "statistics": {
+    "total_sections_found": 15,
+    "sections_included": 15,
+    "subsections_included": 10,
+    "total_words_analyzed": 597,
+    "average_relevance_score": 0.392,
+    "max_relevance_score": 0.525,
+    "min_relevance_score": 0.28,
+    "sections_per_document": {
+      "South of France - Tips and Tricks.pdf": 3,
+      "South of France - Things to Do.pdf": 2,
+      "South of France - Cuisine.pdf": 2,
+      "South of France - History.pdf": 2,
+      "South of France - Restaurants and Hotels.pdf": 2,
+      "South of France - Cities.pdf": 2,
+      "South of France - Traditions and Culture.pdf": 2
+    }
   },
   "extracted_sections": [
     {
       "document": "South of France - Tips and Tricks.pdf",
+      "section_title": "This guide covers everything from packing essentials to..",
+      "importance_rank": 1,
       "page_number": 1,
-      "section_title": "Introduction",
-      "importance_rank": 1
-    },
-    {
-      "document": "South of France - Things to Do.pdf",
-      "page_number": 1,
-      "section_title": "Introduction",
-      "importance_rank": 2
+      "word_count": 38,
+      "relevance_score": 0.525,
+      "extraction_method": "fallback_chunking"
     },
     {
       "document": "South of France - Tips and Tricks.pdf",
-      "page_number": 9,
-      "section_title": "Conclusion",
-      "importance_rank": 3
-    },
-    {
-      "document": "South of France - Cities.pdf",
-      "page_number": 8,
-      "section_title": "Key Attractions",
-      "importance_rank": 4
-    },
-    {
-      "document": "South of France - History.pdf",
-      "page_number": 10,
-      "section_title": "Key Historical Sites in Montpellier",
-      "importance_rank": 5
-    },
-    {
-      "document": "South of France - History.pdf",
+      "section_title": "The Ultimate South of France Travel Companion: Your..",
+      "importance_rank": 2,
       "page_number": 1,
-      "section_title": "Introduction",
-      "importance_rank": 6
-    },
-    {
-      "document": "South of France - Cuisine.pdf",
-      "page_number": 8,
-      "section_title": "Conclusion",
-      "importance_rank": 7
-    },
-    {
-      "document": "South of France - Cuisine.pdf",
-      "page_number": 1,
-      "section_title": "Introduction",
-      "importance_rank": 8
-    },
-    {
-      "document": "South of France - Cities.pdf",
-      "page_number": 14,
-      "section_title": "Conclusion",
-      "importance_rank": 9
-    },
-    {
-      "document": "South of France - Restaurants and Hotels.pdf",
-      "page_number": 14,
-      "section_title": "Conclusion",
-      "importance_rank": 10
-    },
-    {
-      "document": "South of France - Restaurants and Hotels.pdf",
-      "page_number": 1,
-      "section_title": "Introduction",
-      "importance_rank": 11
+      "word_count": 34,
+      "relevance_score": 0.46,
+      "extraction_method": "fallback_chunking"
     },
     {
       "document": "South of France - Things to Do.pdf",
-      "page_number": 4,
-      "section_title": "Water Activities",
-      "importance_rank": 12
+      "section_title": "Whether you're seeking adventure, relaxation, or cultural enrichment,..",
+      "importance_rank": 3,
+      "page_number": 1,
+      "word_count": 34,
+      "relevance_score": 0.45,
+      "extraction_method": "fallback_chunking"
     },
     {
-      "document": "South of France - Traditions and Culture.pdf",
+      "document": "South of France - Cuisine.pdf",
+      "section_title": "Use this guide to plan your culinary journey..",
+      "importance_rank": 4,
+      "page_number": 8,
+      "word_count": 30,
+      "relevance_score": 0.442,
+      "extraction_method": "fallback_chunking"
+    },
+    {
+      "document": "South of France - Things to Do.pdf",
+      "section_title": "From family-friendly adventures to vibrant nightlife, the South..",
+      "importance_rank": 5,
+      "page_number": 13,
+      "word_count": 41,
+      "relevance_score": 0.442,
+      "extraction_method": "fallback_chunking"
+    },
+    {
+      "document": "South of France - History.pdf",
+      "section_title": "This guide will take you through the histories..",
+      "importance_rank": 6,
+      "page_number": 1,
+      "word_count": 28,
+      "relevance_score": 0.439,
+      "extraction_method": "fallback_chunking"
+    },
+    {
+      "document": "South of France - Restaurants and Hotels.pdf",
+      "section_title": "From the glamorous beaches of the French Riviera..",
+      "importance_rank": 7,
+      "page_number": 1,
+      "word_count": 49,
+      "relevance_score": 0.38,
+      "extraction_method": "fallback_chunking"
+    },
+    {
+      "document": "South of France - Restaurants and Hotels.pdf",
+      "section_title": "Conclusion The South of France o\ufb00ers a wide..",
+      "importance_rank": 8,
+      "page_number": 14,
+      "word_count": 49,
+      "relevance_score": 0.364,
+      "extraction_method": "fallback_chunking"
+    },
+    {
+      "document": "South of France - Cuisine.pdf",
+      "section_title": "This guide will take you through the di\ufb00erent..",
+      "importance_rank": 9,
+      "page_number": 1,
+      "word_count": 33,
+      "relevance_score": 0.356,
+      "extraction_method": "fallback_chunking"
+    },
+    {
+      "document": "South of France - History.pdf",
+      "section_title": "Use this guide to plan your journey through..",
+      "importance_rank": 10,
+      "page_number": 12,
+      "word_count": 23,
+      "relevance_score": 0.352,
+      "extraction_method": "fallback_chunking"
+    },
+    {
+      "document": "South of France - Cities.pdf",
+      "section_title": "Use this guide to plan your journey through..",
+      "importance_rank": 11,
+      "page_number": 14,
+      "word_count": 25,
+      "relevance_score": 0.351,
+      "extraction_method": "fallback_chunking"
+    },
+    {
+      "document": "South of France - Cities.pdf",
+      "section_title": "The Mediterranean climate ensures warm summers and mild winters, making it a year-round destination",
+      "importance_rank": 12,
       "page_number": 2,
-      "section_title": "Literature and Poetry",
-      "importance_rank": 13
+      "word_count": 68,
+      "relevance_score": 0.348,
+      "extraction_method": "fallback_chunking"
     },
     {
       "document": "South of France - Traditions and Culture.pdf",
-      "page_number": 3,
-      "section_title": "Traditional Sports and Games",
-      "importance_rank": 14
+      "section_title": "This region, known for its rich history and..",
+      "importance_rank": 13,
+      "page_number": 1,
+      "word_count": 53,
+      "relevance_score": 0.298,
+      "extraction_method": "fallback_chunking"
+    },
+    {
+      "document": "South of France - Traditions and Culture.pdf",
+      "section_title": "The town of Richerenches hosts a tru\ufb04e mass..",
+      "importance_rank": 14,
+      "page_number": 4,
+      "word_count": 47,
+      "relevance_score": 0.28,
+      "extraction_method": "fallback_chunking"
+    },
+    {
+      "document": "South of France - Tips and Tricks.pdf",
+      "section_title": "Keep them separate from the originals",
+      "importance_rank": 15,
+      "page_number": 2,
+      "word_count": 45,
+      "relevance_score": 0.39,
+      "extraction_method": "fallback_chunking"
     }
   ],
   "subsection_analysis": [
     {
-      "document": "South of France - Cities.pdf",
-      "refined_text": "Atelier C\u00e9zanne: The studio of Paul C\u00e9zanne, one of the most famous painters associated with Aix-en-Provence, is preserved as a museum. Visitors can see where C\u00e9zanne created many of his masterpieces and gain insight into his artistic process.",
-      "page_number": 8
+      "document": "South of France - Tips and Tricks.pdf",
+      "refined_text": "This guide covers everything from packing essentials to travel tips, catering to all seasons and various activities. Whether you're traveling solo, with kids, or in a group, this guide will help you make the most of your trip.",
+      "page_number": 1,
+      "source_section": "This guide covers everything from packing essentials to..",
+      "text_length": 226
+    },
+    {
+      "document": "South of France - Tips and Tricks.pdf",
+      "refined_text": "The Ultimate South of France Travel Companion: Your Comprehensive Guide to Packing, Planning, and Exploring Introduction Planning a trip to the South of France requires thoughtful preparation to ensure a comfortable and enjoyable experience.",
+      "page_number": 1,
+      "source_section": "The Ultimate South of France Travel Companion: Your..",
+      "text_length": 241
+    },
+    {
+      "document": "South of France - Things to Do.pdf",
+      "refined_text": "Whether you're seeking adventure, relaxation, or cultural enrichment, this region has something for everyone. This guide will take you through a variety of activities and must-see attractions to help you plan an unforgettable trip.",
+      "page_number": 1,
+      "source_section": "Whether you're seeking adventure, relaxation, or cultural enrichment,..",
+      "text_length": 231
+    },
+    {
+      "document": "South of France - Cuisine.pdf",
+      "refined_text": "Use this guide to plan your culinary journey and savor the tastes of the South of France, creating memories that will linger long after your trip has ended. Bon apptit!",
+      "page_number": 8,
+      "source_section": "Use this guide to plan your culinary journey..",
+      "text_length": 168
+    },
+    {
+      "document": "South of France - Things to Do.pdf",
+      "refined_text": "From family-friendly adventures to vibrant nightlife, the South of France promises an unforgettable journey filled with memories that will last a lifetime. Use this guide to plan your trip and make the most of everything this beautiful region has to o\ufb00er.",
+      "page_number": 13,
+      "source_section": "From family-friendly adventures to vibrant nightlife, the South..",
+      "text_length": 255
+    },
+    {
+      "document": "South of France - History.pdf",
+      "refined_text": "This guide will take you through the histories of major cities, famous historical sites, and other points of interest to help you plan an enriching and unforgettable trip.",
+      "page_number": 1,
+      "source_section": "This guide will take you through the histories..",
+      "text_length": 171
+    },
+    {
+      "document": "South of France - Restaurants and Hotels.pdf",
+      "refined_text": "From the glamorous beaches of the French Riviera to the charming villages of Provence, this region o\ufb00ers a diverse array of experiences. Whether you're looking for budget-friendly options, family-friendly spots, upscale dining, or luxurious experiences, this guide will help you find the perfect restaurants and hotels for your trip.",
+      "page_number": 1,
+      "source_section": "From the glamorous beaches of the French Riviera..",
+      "text_length": 333
+    },
+    {
+      "document": "South of France - Restaurants and Hotels.pdf",
+      "refined_text": "Conclusion The South of France o\ufb00ers a wide range of dining and accommodation options to suit every budget and preference. Whether you're looking for budget-friendly eateries, family-friendly spots, upscale dining, or luxurious experiences, this guide will help you find the perfect places to eat and stay during your trip.",
+      "page_number": 14,
+      "source_section": "Conclusion The South of France o\ufb00ers a wide..",
+      "text_length": 323
+    },
+    {
+      "document": "South of France - Cuisine.pdf",
+      "refined_text": "This guide will take you through the di\ufb00erent types of food, famous dishes, must-visit restaurants, renowned wine regions, and the types of wines they produce to help you plan an unforgettable culinary adventure.",
+      "page_number": 1,
+      "source_section": "This guide will take you through the di\ufb00erent..",
+      "text_length": 212
+    },
+    {
+      "document": "South of France - History.pdf",
+      "refined_text": "Use this guide to plan your journey through the South of France and immerse yourself in the fascinating history of this beautiful region.",
+      "page_number": 12,
+      "source_section": "Use this guide to plan your journey through..",
+      "text_length": 137
     }
   ]
 }

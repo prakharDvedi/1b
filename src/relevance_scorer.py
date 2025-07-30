@@ -6,7 +6,6 @@ class RelevanceScorer:
     def __init__(self):
         pass
     
-    # Score sections using completely generic approach
     def score_sections(self, sections: List[Dict[str, Any]], 
                       persona_context: Dict[str, Any]) -> List[Dict[str, Any]]:
         
@@ -34,7 +33,6 @@ class RelevanceScorer:
         
         return balanced_sections
     
-    # Pure generic scoring without domain assumptions
     def _calculate_pure_generic_score(self, section: Dict[str, Any], 
                                     keywords: List[str], 
                                     query: str) -> float:
@@ -58,7 +56,6 @@ class RelevanceScorer:
         
         return final_score
     
-    # Calculate keyword overlap ratio
     def _calculate_keyword_overlap(self, text: str, keywords: List[str]) -> float:
         if not keywords or not text:
             return 0.0
@@ -78,7 +75,6 @@ class RelevanceScorer:
         
         return min(1.0, overlap_score)
     
-    # Calculate word overlap using Jaccard similarity
     def _calculate_word_overlap(self, text1: str, text2: str) -> float:
         if not text1 or not text2:
             return 0.0
@@ -94,7 +90,6 @@ class RelevanceScorer:
         
         return intersection / union if union > 0 else 0.0
     
-    # Universal text quality metrics
     def _calculate_text_quality(self, section: Dict[str, Any]) -> float:
         title = section.get('section_title', '')
         content = section.get('content', '')
@@ -118,7 +113,6 @@ class RelevanceScorer:
         
         return min(1.0, quality_score)
     
-    # Measure information density
     def _calculate_content_richness(self, text: str) -> float:
         if not text:
             return 0.0
@@ -137,7 +131,6 @@ class RelevanceScorer:
         
         return min(1.0, richness)
     
-    # Ensure document diversity without preferences
     def _ensure_diversity(self, ranked_sections: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         if not ranked_sections:
             return []

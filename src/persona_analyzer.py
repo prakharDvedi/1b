@@ -5,7 +5,6 @@ class PersonaAnalyzer:
     def __init__(self):
         pass
     
-    # Analyze persona dynamically without domain assumptions
     def analyze_persona(self, persona: Dict[str, Any], job: Dict[str, Any]) -> Dict[str, Any]:
         persona_role = persona.get('role', '').strip()
         job_task = job.get('task', '').strip()
@@ -27,7 +26,6 @@ class PersonaAnalyzer:
         
         return context
     
-    # Extract meaningful keywords from text without domain bias
     def _extract_keywords_generic(self, text: str) -> List[str]:
         if not text:
             return []
@@ -44,7 +42,6 @@ class PersonaAnalyzer:
         
         return list(set(meaningful_words))
     
-    # Dynamically extract action words without predefined lists
     def _extract_dynamic_actions(self, text: str) -> List[str]:
         if not text:
             return []
